@@ -1,14 +1,19 @@
+<<<<<<< Updated upstream
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+=======
+import { Home } from "./Pages/Home/Home";
+>>>>>>> Stashed changes
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+<<<<<<< Updated upstream
       <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
@@ -116,6 +121,12 @@ function App() {
       <section id="spacer"></section>
     </>
   )
+=======
+      <h1>TP1 de PWA</h1>
+      <Home />
+    </>
+  );
+>>>>>>> Stashed changes
 }
 
 export default App
