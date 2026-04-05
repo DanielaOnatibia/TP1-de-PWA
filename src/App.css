@@ -1,0 +1,87 @@
+/* 1. Importación de Tipografía */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;700&display=swap');
+
+/* 2. Variables Globales (Paleta, Fuentes y Estructura) */
+:root {
+  /* Paleta de Colores */
+  --bg-principal: #F8F9FA;        /* Blanco tiza/gris muy claro para el fondo */
+  --bg-tarjeta: #FFFFFF;          /* Blanco puro para los items de películas */
+  --texto-principal: #212529;     /* Gris oscuro para máxima legibilidad */
+  --texto-secundario: #6C757D;    /* Gris medio para detalles (ej. año, director) */
+  
+  --color-primario: #20B2AA;      /* Verde Mar (Botones principales, acentos) */
+  --color-primario-hover: #1A938C;/* Un tono más oscuro para cuando pasás el mouse */
+  --color-secundario: #4682B4;    /* Azul claro/Celeste (Filtros, badges) */
+  --color-peligro: #E06666;       /* Rojo suave (Botón eliminar) */
+  --color-peligro-hover: #CC5555; /* Rojo un poco más intenso para el hover */
+
+  /* Tipografía */
+  --fuente-principal: 'Merriweather Sans', sans-serif;
+
+  /* Estructura y UI */
+  --borde-radio: 8px;             
+  --borde-color: #DEE2E6;        
+  --sombra-caja: 0 2px 4px rgba(0, 0, 0, 0.05); 
+  
+  /* Animaciones (microinteracciones suaves) */
+  --transicion-suave: all 0.2s ease-in-out;
+}
+
+/* 3. Reset Básico (Para que todos los navegadores se comporten igual) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 4. Estilos Globales */
+body {
+  background-color: var(--bg-principal);
+  color: var(--texto-principal);
+  font-family: var(--fuente-principal);
+  font-weight: 400; 
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; 
+}
+
+/* 5. Jerarquía Tipográfica Básica */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  color: var(--texto-principal);
+  margin-bottom: 0.5rem;
+}
+
+/* 6. Normalización de Elementos de Formulario (Inputs, Selects, Buttons) */
+input, select, button, textarea {
+  font-family: inherit; 
+  font-size: 1rem;
+}
+
+/* Estilo base para todos los botones */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--borde-radio);
+  transition: var(--transicion-suave); 
+}
+
+/* Estilo base para inputs y selects */
+input[type="text"], 
+input[type="number"], 
+select {
+  border: 1px solid var(--borde-color);
+  border-radius: var(--borde-radio);
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-tarjeta);
+  color: var(--texto-principal);
+  transition: var(--transicion-suave);
+}
+
+/* El input resalta sutilmente cuando el usuario está escribiendo */
+input[type="text"]:focus, 
+input[type="number"]:focus, 
+select:focus {
+  outline: none;
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 2px rgba(32, 178, 170, 0.2);
+}
