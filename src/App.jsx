@@ -1,13 +1,12 @@
-import { Home } from "./Pages/Home/Home";
+import Home from "./Pages/Home/Home";
+import "./App.css";
 
 function App() {
-
   return (
     <>
-      <h1>TP1 de PWA</h1>
       <Home />
     </>
   );
 }
 
-export default App
+export default App;
