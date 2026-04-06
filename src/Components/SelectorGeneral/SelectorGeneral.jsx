@@ -1,22 +1,22 @@
-import React from "react";
 import style from "./SelectorGeneral.module.css";
 
 const SelectorGeneral = ({ label, options, value, onChange }) => {
+  // Generamos un id único basado en el label para accesibilidad
+  const idSelect = `select-${label.replace(/\s+/g, '-').toLowerCase()}`;
+
   return (
     <div className={style.container}>
-      {/* Usamos la prop 'label' para texto de arriba */}
-      <label className={style.labelText}>{label}</label>
-      {/* Aca el valor y la funcion de cambio vienen por props */}
+      <label htmlFor={idSelect} className={style.labelText}>{label}</label>
       <select
+        id={idSelect}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={style.selectCampus}
       >
-        <option value=""> -- Selecione un género -- </option>
-        {/* Renderizo con .map */}
-        {options.map((genero, index) => (
-          <option key={index} value={genero}>
-            {genero}
+        <option value=""> -- Seleccione una opción -- </option>
+        {options.map((opcion, index) => (
+          <option key={index} value={opcion}>
+            {opcion}
           </option>
         ))}
       </select>
