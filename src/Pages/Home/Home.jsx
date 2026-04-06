@@ -12,7 +12,7 @@ export function Home() {
       return JSON.parse(datosGuardados);
     }
 
-    return [{ id: 1, nombre: "Película de Prueba", genero: "Acción" }];
+    return [];
   });
 
   {
@@ -26,8 +26,13 @@ export function Home() {
   const agregarPelicula = () => {
     const nuevaPeli = {
       id: Date.now(),
-      nombre: "Nueva Peli",
-      genero: "Comedia",
+      titulo: "Nueva Peli",
+      director: "Director Prueba",
+      anio: 2024,
+      genero: "Terror",
+      rating: 5,
+      tipo: "Película",
+      esVista: false,
     };
     setPeliculas([...peliculas, nuevaPeli]);
   };
@@ -55,14 +60,17 @@ export function Home() {
       <div>
         <h1>Mis Peliculas</h1>
         <button onClick={agregarPelicula}>Agregar Película</button>
-        <ul>
-          {peliculas.map((p) => (
-            <li key={p.id}>
-              {" "}
-              {p.nombre} ({p.genero}){" "}
-            </li>
-          ))}
-        </ul>
+        {peliculas.length === 0 ? (
+          <p>No hay películas ni series en tu lista. Agrega la primera</p>
+        ) : (
+          <ul>
+            {peliculas.map((p) => (
+              <li key={p.id}>
+                <strong>{p.titulo}</strong> - {p.director} ({p.genero})
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
