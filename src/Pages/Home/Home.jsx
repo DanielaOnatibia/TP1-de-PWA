@@ -55,29 +55,67 @@ export function Home() {
         onChange={setGeneroElegido}
       />
 
-      {/* SECCIÓN DE LA LISTA */}
-      <div>
-        <h1>Mis Peliculas</h1>
-        <button onClick={agregarPelicula}>+ Agregar Prueba</button>
+     <div className={styles.contenedorPrincipalListas}>
+  <h1>Mis Películas</h1>
+  <button onClick={agregarPelicula} className={styles.botonPrueba}>
+    + Agregar Prueba
+  </button>
 
+  {/* 1. NIVEL: ¿LA APP ESTÁ TOTALMENTE VACÍA? */}
+  {peliculas.length === 0 ? (
+    <div className={styles.mensajeVacio}>
+      <span className={styles.iconoVacio}>🍿</span>
+      <p>Tu lista está vacía. ¡Agregá una película o serie para empezar!</p>
+    </div>
+  ) : (
+    /* 2. NIVEL: SI HAY AL MENOS UNA PELI, MOSTRAMOS LAS SECCIONES */
+    <>
+      {/* SECCIÓN: POR VER */}
+      <section className={styles.seccionLista}>
+        <h2 className={styles.subtitulo}>🕒 Por ver</h2>
         <div className={styles.contenedorLista}>
-          {peliculas.length === 0 ? (
-            <div className={styles.mensajeVacio}>
-              <span className={styles.iconoVacio}>🍿</span>
-              <p>Tu lista está vacía. ¡Agregá una película o serie para empezar!</p>
-            </div>
+          {peliculas.filter((p) => !p.esVista).length === 0 ? (
+            <p className={styles.mensajeInfo}>¡No tenés nada pendiente! 🥳</p>
           ) : (
-            peliculas.map((peli) => (
-              <CardPelicula 
-                key={peli.id} 
-                item={peli} 
-                onEliminar={eliminarPelicula} 
-                onCambiarEstado={cambiarEstado}
-              />
-            ))
+            peliculas
+              .filter((p) => !p.esVista)
+              .map((peli) => (
+                <CardPelicula
+                  key={peli.id}
+                  item={peli}
+                  onEliminar={eliminarPelicula}
+                  onCambiarEstado={cambiarEstado}
+                />
+              ))
           )}
         </div>
-      </div>
+      </section>
+
+      <hr className={styles.separador} />
+
+      {/* SECCIÓN: YA VISTAS */}
+      <section className={styles.seccionLista}>
+        <h2 className={styles.subtitulo}>✅ Ya las vi</h2>
+        <div className={styles.contenedorLista}>
+          {peliculas.filter((p) => p.esVista).length === 0 ? (
+            <p className={styles.mensajeInfo}>Todavía no terminaste ninguna. 🎬</p>
+          ) : (
+            peliculas
+              .filter((p) => p.esVista)
+              .map((peli) => (
+                <CardPelicula
+                  key={peli.id}
+                  item={peli}
+                  onEliminar={eliminarPelicula}
+                  onCambiarEstado={cambiarEstado}
+                />
+              ))
+          )}
+        </div>
+      </section>
+    </>
+  )}
+</div>
     </div>
   );
 }
