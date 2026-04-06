@@ -1,12 +1,10 @@
-import React from "react";
+import styles from "./Titulo.module.css";
 
 const Titulo = ({ texto }) => {
   return (
-    <>
-      <h1 style={{ color: "#4a90e2", textAlign: "center", fontSize: "2.5rem" }}>
-        {texto}
-      </h1>
-    </>
+    <h1 className={styles.principal}>
+      {texto}
+    </h1>
   );
 };
 
