@@ -1,0 +1,81 @@
+.card {
+  background-color: var(--bg-tarjeta);
+  border-radius: var(--borde-radio);
+  padding: 1.5rem;
+  box-shadow: var(--sombra-caja);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: var(--transicion-suave);
+  border-top: 4px solid transparent;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Diferenciación visual */
+.bordePelicula {
+  border-top-color: var(--color-primario);
+}
+
+.bordeSerie {
+  border-top-color: var(--color-secundario); 
+}
+
+/* Cabecera y manejo de títulos */
+.cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--texto-principal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.etiquetaTipo {
+  background-color: var(--bg-principal);
+  color: var(--texto-secundario);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--borde-color);
+}
+
+/* Cuerpo de los datos */
+.cuerpo p {
+  margin: 0.25rem 0;
+  color: var(--texto-secundario);
+  font-size: 0.95rem;
+}
+
+.cuerpo strong {
+  color: var(--texto-principal);
+}
+
+/* Contenedores de botones */
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.accionesSecundarias {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.accionesSecundarias > button {
+  flex: 1;
+}

@@ -1,5 +1,5 @@
 import styles from "./Home.module.css";
-import Titulo from "../../Components/Titulo";
+import Titulo from "../../Components/Titulo/Titulo";
 
 export function Home() {
   return (
