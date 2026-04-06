@@ -60,17 +60,28 @@ export function Home() {
       <div>
         <h1>Mis Peliculas</h1>
         <button onClick={agregarPelicula}>Agregar Película</button>
-        {peliculas.length === 0 ? (
-          <p>No hay películas ni series en tu lista. Agrega la primera</p>
-        ) : (
-          <ul>
-            {peliculas.map((p) => (
-              <li key={p.id}>
-                <strong>{p.titulo}</strong> - {p.director} ({p.genero})
-              </li>
-            ))}
-          </ul>
-        )}
+
+       {/* Seccion de la lista */}
+        <div className={styles.contenedorLista}>
+          {peliculas.length === 0 ? (
+            /* Esto se muestra si NO hay películas */
+            <div className={styles.mensajeVacio}>
+              <span className={styles.iconoVacio}>🍿</span>
+              <p>Tu lista está vacía. ¡Agregá una película o serie para empezar!</p>
+            </div>
+          ) : (
+            /* Esto se muestra si HAY películas (lo que ya hizo Erick) */
+            peliculas.map((peli) => (
+              <CardPelicula 
+                key={peli.id} 
+                item={peli} 
+                onEliminar={eliminarPelicula} 
+                onCambiarEstado={cambiarEstado}
+              />
+            ))
+          )}
+        </div>
+
       </div>
     </div>
   );
