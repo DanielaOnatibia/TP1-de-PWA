@@ -1,5 +1,6 @@
 import styles from "./Home.module.css";
 import Titulo from "../../Components/Titulo/Titulo";
+import Formulario from "../../Components/Formulario/Formulario";
 import SelectorGeneral from "../../Components/SelectorGeneral/SelectorGeneral";
 import { useState, useEffect } from "react";
 
@@ -15,9 +16,8 @@ export function Home() {
     return [];
   });
 
-  {
-    /* Al cambiar la lista guarda automaticamente, se ejecuta cada vez que la variable pelicula se modifique */
-  }
+  // Al cambiar la lista guarda automaticamente, se ejecuta cada vez que la variable pelicula se modifique
+
   useEffect(() => {
     localStorage.setItem("mis_pelis", JSON.stringify(peliculas));
     console.log("Guardado en LocalStorage:", peliculas);
@@ -31,7 +31,7 @@ export function Home() {
       anio: 2024,
       genero: "Terror",
       rating: 5,
-      tipo: "Película",
+      tipo: "pelicula",
       esVista: false,
     };
     setPeliculas([...peliculas, nuevaPeli]);
@@ -49,14 +49,14 @@ export function Home() {
   return (
     <div className={styles.container}>
       <Titulo texto="Mi Aplicación PWA" />
+      <Formulario setPeliculas={setPeliculas} peliculas={peliculas} />
       <SelectorGeneral
         label="Género de la película"
         options={generoPelis}
         value={generoElegido}
         onChange={setGeneroElegido}
       />
-
-      {/* PRUEBA LOCALSTORAGE */}
+      // PRUEBA LOCALSTORAGE
       <div>
         <h1>Mis Peliculas</h1>
         <button onClick={agregarPelicula}>Agregar Película</button>
