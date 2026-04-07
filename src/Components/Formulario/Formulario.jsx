@@ -11,9 +11,22 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
   const [rating, setRating] = useState("");
   const [tipo, setTipo] = useState("");
   const [esVista, setEsVista] = useState(false);
+  const [enviado, setEnviado] = useState(false);
 
   const handleEnviar = (e) => {
     e.preventDefault();
+    setEnviado(true);
+    if (
+      titulo === "" ||
+      director === "" ||
+      anio === "" ||
+      genero === "" ||
+      rating === "" ||
+      tipo === ""
+    ) {
+      alert("Por favor, completa los campos obligatorios");
+      return; //Cortamos la funcion para no guardar nada
+    }
     const nuevaPeli = {
       id: Date.now(),
       titulo: titulo,
@@ -33,6 +46,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
     setGenero("");
     setRating("");
     setTipo("");
+    setEnviado(false);
   };
 
   const tipoPeli = ["pelicula", "serie", "documental"];
@@ -45,6 +59,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
         placeholder="Titulo"
         value={titulo}
         onChange={(e) => setTitulo(e.target.value)}
+        className={`${styles.inputField} ${enviado && titulo === "" ? styles.inputError : ""}`}
       />
 
       <input
@@ -52,6 +67,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
         placeholder="Director"
         value={director}
         onChange={(e) => setDirector(e.target.value)}
+        className={`${styles.inputField} ${enviado && director === "" ? styles.inputError : ""}`}
       />
 
       <input
@@ -59,6 +75,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
         placeholder="Año"
         value={anio}
         onChange={(e) => setAnio(Number(e.target.value))}
+        className={`${styles.inputField} ${enviado && anio === "" ? styles.inputError : ""}`}
       />
 
       <SelectorGeneral
@@ -66,7 +83,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
         options={generoPelis}
         value={genero}
         onChange={setGenero}
-        className={styles.label}
+        className={`${enviado && genero === "" ? styles.inputError : ""}`}
       />
 
       <input
@@ -74,6 +91,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
         placeholder="Rating"
         value={rating}
         onChange={(e) => setRating(Number(e.target.value))}
+        className={`${styles.inputField} ${enviado && rating === "" ? styles.inputError : ""}`}
       />
 
       <SelectorGeneral
@@ -81,6 +99,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
         options={tipoPeli}
         value={tipo}
         onChange={setTipo}
+        className={`${enviado && tipo === "" ? styles.inputError : ""}`}
       />
 
       <button type="submit" className={styles.buttonSubmit}>

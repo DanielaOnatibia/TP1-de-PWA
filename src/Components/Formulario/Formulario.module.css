@@ -34,3 +34,8 @@ h3 {
 .buttonSubmit:active {
   transform: translateY(0);
 }
+
+.inputError {
+  border: 2px solid #e74c3c !important;
+  background-color: #fdf2f2;
+}
