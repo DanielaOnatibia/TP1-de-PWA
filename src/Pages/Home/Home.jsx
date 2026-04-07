@@ -2,10 +2,18 @@ import styles from "./Home.module.css";
 import Titulo from "../../Components/Titulo/Titulo";
 import Formulario from "../../Components/Formulario/Formulario";
 import SelectorGeneral from "../../Components/SelectorGeneral/SelectorGeneral";
-import CardPelicula from "../../Components/CardPelicula/CardPelicula"; // AGREGADO
+import CardPelicula from "../../Components/CardPelicula/CardPelicula";
+import Buscador from "../../Components/Buscador/Buscador";
+import Filtrado from "../../Components/Filtrado/Filtrado";
+import Orden from "../../Components/Orden/Orden";
 import { useState, useEffect } from "react";
 
 export function Home() {
+  const [textoBusqueda, setTextoBusqueda] = useState("");
+  const [filtroGenero, setFiltroGenero] = useState("");
+  const [filtroTipo, setFiltroTipo] = useState("");
+  const [parametroOrden, setParametroOrden] = useState("anio");
+  const [direccionOrden, setDireccionOrden] = useState("desc");
   const [generoElegido, setGeneroElegido] = useState("");
   const [peliculas, setPeliculas] = useState(() => {
     const datosGuardados = localStorage.getItem("mis_pelis");
@@ -52,12 +60,28 @@ export function Home() {
 
   return (
     <div className={styles.container}>
-      <Titulo texto="Mi Aplicación PWA" />
-      <Formulario
-        setPeliculas={setPeliculas}
-        peliculas={peliculas}
-        generoPelis={generoPelis}
-      />
+      <Titulo texto="Gestor de Películas y Series" />
+      <section className={styles.seccionFiltros}>
+        <Buscador
+          busqueda={textoBusqueda}
+          onCambiarBusqueda={setTextoBusqueda}
+        />
+
+        <Filtrado
+          filtroGenero={filtroGenero}
+          setFiltroGenero={setFiltroGenero}
+          filtroTipo={filtroTipo}
+          setFiltroTipo={setFiltroTipo}
+        />
+
+        <Orden
+          parametroOrden={parametroOrden}
+          setParametroOrden={setParametroOrden}
+          direccionOrden={direccionOrden}
+          setDireccionOrden={setDireccionOrden}
+        />
+      </section>
+      <Formulario setPeliculas={setPeliculas} peliculas={peliculas} />
 
       <SelectorGeneral
         label="Género de la película"
