@@ -1,0 +1,52 @@
+/* Contenedor principal del bloque de ordenamiento */
+.contenedorOrdenamiento {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto 0 auto;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--borde-color);
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--texto-secundario);
+  white-space: nowrap;
+}
+
+/* Agrupa el select y los botones */
+.controlesOrden {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.select {
+  min-width: 120px;
+}
+
+.botonesOrden {
+  display: flex;
+  gap: 0.25rem;
+}
+
+/* Diseño responsivo para celulares */
+@media (max-width: 480px) {
+  .contenedorOrdenamiento {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controlesOrden {
+    width: 100%;
+  }
+
+  .select {
+    flex: 1;
+  }
+}

@@ -1,8 +1,13 @@
+
 .boton {
   color: #FFFFFF;
   padding: 0.5rem 1rem;
   font-weight: 700;
   box-shadow: var(--sombra-caja);
+  /* Tus agregados de PM: */
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
 }
 
 .boton:hover {

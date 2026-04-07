@@ -13,7 +13,8 @@ const CardPelicula = ({ item, onCambiarEstado, onEditar, onEliminar }) => {
 
   return (
     <div
-      className={`${styles.card} ${item.tipo === "película" ? styles.bordePelicula : styles.bordeSerie}`}
+      /* CAMBIO 1: Se quitó el acento en "pelicula" para coincidir con Erick */
+      className={`${styles.card} ${item.tipo === "pelicula" ? styles.bordePelicula : styles.bordeSerie}`}
     >
       <div className={styles.cabecera}>
         <h3 className={styles.titulo} title={item.titulo}>
@@ -38,17 +39,20 @@ const CardPelicula = ({ item, onCambiarEstado, onEditar, onEliminar }) => {
       </div>
 
       <div className={styles.acciones}>
-        {item.estado === "por ver" ? (
+        {/* CAMBIO 2: Se usa !item.esVista (booleano) en lugar del string "por ver" */}
+        {!item.esVista ? (
           <Button
             texto="Marcar como vista"
             color="var(--color-primario)"
-            onClick={() => onCambiarEstado(item.id, "vista")}
+            /* CAMBIO 3: Se quita el segundo parámetro "vista" para simplificar la lógica de Erick */
+            onClick={() => onCambiarEstado(item.id)}
           />
         ) : (
           <Button
             texto="Volver a pendientes"
             color="var(--color-secundario)"
-            onClick={() => onCambiarEstado(item.id, "por ver")}
+            /* CAMBIO 4: Se quita el segundo parámetro "por ver" */
+            onClick={() => onCambiarEstado(item.id)}
           />
         )}
 
