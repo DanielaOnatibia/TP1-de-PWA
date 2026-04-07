@@ -2,10 +2,18 @@ import styles from "./Home.module.css";
 import Titulo from "../../Components/Titulo/Titulo";
 import Formulario from "../../Components/Formulario/Formulario";
 import SelectorGeneral from "../../Components/SelectorGeneral/SelectorGeneral";
-import CardPelicula from "../../Components/CardPelicula/CardPelicula"; // AGREGADO
+import CardPelicula from "../../Components/CardPelicula/CardPelicula";
+import Buscador from "../../Components/Buscador/Buscador";
+import Filtrado from "../../Components/Filtrado/Filtrado";
+import Orden from "../../Components/Orden/Orden";
 import { useState, useEffect } from "react";
 
 export function Home() {
+  const [textoBusqueda, setTextoBusqueda] = useState("");
+  const [filtroGenero, setFiltroGenero] = useState("");
+  const [filtroTipo, setFiltroTipo] = useState("");
+  const [parametroOrden, setParametroOrden] = useState("anio");
+  const [direccionOrden, setDireccionOrden] = useState("desc");
   const [generoElegido, setGeneroElegido] = useState("");
   const [peliculas, setPeliculas] = useState(() => {
     const datosGuardados = localStorage.getItem("mis_pelis");
@@ -18,13 +26,13 @@ export function Home() {
 
   // Funciones de control (Agregadas para que no de error)
   const eliminarPelicula = (id) => {
-    setPeliculas(peliculas.filter(p => p.id !== id));
+    setPeliculas(peliculas.filter((p) => p.id !== id));
   };
 
   const cambiarEstado = (id) => {
-    setPeliculas(peliculas.map(p => 
-      p.id === id ? { ...p, esVista: !p.esVista } : p
-    ));
+    setPeliculas(
+      peliculas.map((p) => (p.id === id ? { ...p, esVista: !p.esVista } : p)),
+    );
   };
 
   const agregarPelicula = () => {
@@ -41,13 +49,40 @@ export function Home() {
     setPeliculas([...peliculas, nuevaPeli]);
   };
 
-  const generoPelis = ["Acción", "Comedia", "Drama", "Terror", "Ciencia Ficción", "Documental"];
+  const generoPelis = [
+    "Acción",
+    "Comedia",
+    "Drama",
+    "Terror",
+    "Ciencia Ficción",
+    "Documental",
+  ];
 
   return (
     <div className={styles.container}>
-      <Titulo texto="Mi Aplicación PWA" />
+      <Titulo texto="Gestor de Películas y Series" />
+      <section className={styles.seccionFiltros}>
+        <Buscador
+          busqueda={textoBusqueda}
+          onCambiarBusqueda={setTextoBusqueda}
+        />
+
+        <Filtrado
+          filtroGenero={filtroGenero}
+          setFiltroGenero={setFiltroGenero}
+          filtroTipo={filtroTipo}
+          setFiltroTipo={setFiltroTipo}
+        />
+
+        <Orden
+          parametroOrden={parametroOrden}
+          setParametroOrden={setParametroOrden}
+          direccionOrden={direccionOrden}
+          setDireccionOrden={setDireccionOrden}
+        />
+      </section>
       <Formulario setPeliculas={setPeliculas} peliculas={peliculas} />
-      
+
       <SelectorGeneral
         label="Género de la película"
         options={generoPelis}
@@ -55,67 +90,73 @@ export function Home() {
         onChange={setGeneroElegido}
       />
 
-     <div className={styles.contenedorPrincipalListas}>
-  <h1>Mis Películas</h1>
-  <button onClick={agregarPelicula} className={styles.botonPrueba}>
-    + Agregar Prueba
-  </button>
+      <div className={styles.contenedorPrincipalListas}>
+        <h1>Mis Películas</h1>
+        <button onClick={agregarPelicula} className={styles.botonPrueba}>
+          + Agregar Prueba
+        </button>
 
-  {/* 1. NIVEL: ¿LA APP ESTÁ TOTALMENTE VACÍA? */}
-  {peliculas.length === 0 ? (
-    <div className={styles.mensajeVacio}>
-      <span className={styles.iconoVacio}>🍿</span>
-      <p>Tu lista está vacía. ¡Agregá una película o serie para empezar!</p>
-    </div>
-  ) : (
-    /* 2. NIVEL: SI HAY AL MENOS UNA PELI, MOSTRAMOS LAS SECCIONES */
-    <>
-      {/* SECCIÓN: POR VER */}
-      <section className={styles.seccionLista}>
-        <h2 className={styles.subtitulo}>🕒 Por ver</h2>
-        <div className={styles.contenedorLista}>
-          {peliculas.filter((p) => !p.esVista).length === 0 ? (
-            <p className={styles.mensajeInfo}>¡No tenés nada pendiente! 🥳</p>
-          ) : (
-            peliculas
-              .filter((p) => !p.esVista)
-              .map((peli) => (
-                <CardPelicula
-                  key={peli.id}
-                  item={peli}
-                  onEliminar={eliminarPelicula}
-                  onCambiarEstado={cambiarEstado}
-                />
-              ))
-          )}
-        </div>
-      </section>
+        {/* 1. NIVEL: ¿LA APP ESTÁ TOTALMENTE VACÍA? */}
+        {peliculas.length === 0 ? (
+          <div className={styles.mensajeVacio}>
+            <span className={styles.iconoVacio}>🍿</span>
+            <p>
+              Tu lista está vacía. ¡Agregá una película o serie para empezar!
+            </p>
+          </div>
+        ) : (
+          /* 2. NIVEL: SI HAY AL MENOS UNA PELI, MOSTRAMOS LAS SECCIONES */
+          <>
+            {/* SECCIÓN: POR VER */}
+            <section className={styles.seccionLista}>
+              <h2 className={styles.subtitulo}>🕒 Por ver</h2>
+              <div className={styles.contenedorLista}>
+                {peliculas.filter((p) => !p.esVista).length === 0 ? (
+                  <p className={styles.mensajeInfo}>
+                    ¡No tenés nada pendiente! 🥳
+                  </p>
+                ) : (
+                  peliculas
+                    .filter((p) => !p.esVista)
+                    .map((peli) => (
+                      <CardPelicula
+                        key={peli.id}
+                        item={peli}
+                        onEliminar={eliminarPelicula}
+                        onCambiarEstado={cambiarEstado}
+                      />
+                    ))
+                )}
+              </div>
+            </section>
 
-      <hr className={styles.separador} />
+            <hr className={styles.separador} />
 
-      {/* SECCIÓN: YA VISTAS */}
-      <section className={styles.seccionLista}>
-        <h2 className={styles.subtitulo}>✅ Ya las vi</h2>
-        <div className={styles.contenedorLista}>
-          {peliculas.filter((p) => p.esVista).length === 0 ? (
-            <p className={styles.mensajeInfo}>Todavía no terminaste ninguna. 🎬</p>
-          ) : (
-            peliculas
-              .filter((p) => p.esVista)
-              .map((peli) => (
-                <CardPelicula
-                  key={peli.id}
-                  item={peli}
-                  onEliminar={eliminarPelicula}
-                  onCambiarEstado={cambiarEstado}
-                />
-              ))
-          )}
-        </div>
-      </section>
-    </>
-  )}
-</div>
+            {/* SECCIÓN: YA VISTAS */}
+            <section className={styles.seccionLista}>
+              <h2 className={styles.subtitulo}>✅ Ya las vi</h2>
+              <div className={styles.contenedorLista}>
+                {peliculas.filter((p) => p.esVista).length === 0 ? (
+                  <p className={styles.mensajeInfo}>
+                    Todavía no terminaste ninguna. 🎬
+                  </p>
+                ) : (
+                  peliculas
+                    .filter((p) => p.esVista)
+                    .map((peli) => (
+                      <CardPelicula
+                        key={peli.id}
+                        item={peli}
+                        onEliminar={eliminarPelicula}
+                        onCambiarEstado={cambiarEstado}
+                      />
+                    ))
+                )}
+              </div>
+            </section>
+          </>
+        )}
+      </div>
     </div>
   );
 }
