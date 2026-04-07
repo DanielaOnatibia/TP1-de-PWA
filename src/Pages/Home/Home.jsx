@@ -81,7 +81,11 @@ export function Home() {
           setDireccionOrden={setDireccionOrden}
         />
       </section>
-      <Formulario setPeliculas={setPeliculas} peliculas={peliculas} />
+      <Formulario
+        setPeliculas={setPeliculas}
+        peliculas={peliculas}
+        generoPelis={generoPelis}
+      />
 
       <SelectorGeneral
         label="Género de la película"
