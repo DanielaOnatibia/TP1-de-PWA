@@ -1,85 +1,125 @@
-/* --- Estructura General --- */
+/* --- ESTRUCTURA GENERAL --- */
 .container {
-  max-width: 1200px;
+  max-width:200%;  
+  width: 100%;     /* Pero con un tope para que no se deforme en monitores gigantes */
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #bfdce9; /* color de fondo suave */
+  min-height: 100vh;
 }
 
-.contenedorPrincipalListas {
-  margin-top: 30px;
+/* ESPACIO PARA FILTROS (Tarea de Abril) */
+.zonaFiltros {
+  background: rgb(151, 195, 239); /*color de buscado*/
+  border: 2px solid #a5b0bd;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #2c536f; /*letra de buscador*/
+  font-style: italic;
+  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.1);
 }
 
-/* --- Mensaje de Vacío Grande (El de los pochoclos 🍿) --- */
+/* --- BOTONES Y UTILIDADES --- */
+.botonPrueba {
+  background-color: #3a6fc3; /*color de boton agregar*/
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: transform 0.2s;
+}
+
+.botonPrueba:hover {
+  transform: scale(1.05);
+  background-color: #103b8b;
+}
+
+/* --- EL DASHBOARD (LISTAS EN PARALELO) --- */
+/* 2. Aseguramos que el dashboard ocupe el 100% del contenedor */
+.dashboardListas {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;           /* Aumentamos un poco el espacio entre columnas */
+  align-items: flex-start;
+  width: 100%;         /* Forzamos a que use todo el ancho disponible */
+}
+
+
+/* CADA COLUMNA (Contenido Por Ver y Visto) */
+/*Ajustamos las columnas para que crezcan */
+.columna {
+  flex: 1;           /* Esto hace que se repartan el 50% cada una */
+  min-width: 40px;
+  background: rgb(19, 24, 35); /*color de fondo de las listas*/
+  border: 2px solid #c4bafa;
+  border-radius: 20px;
+  padding: 50px; /* Más aire adentro de la caja */
+}
+
+.headerListaPorVer h2, 
+.headerListaVisto h2 {
+  background-color: #1b5ec2;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  border: 2px solid #333;
+}
+
+/* SECCIÓN DE ESTADÍSTICAS */
+.stats {
+  background: #bfd6ec;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #4a4c53;
+}
+
+.stats strong {
+  color: #787878;
+}
+
+/* CONTENEDOR DE TARJETAS */
+.listadoCards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio vertical entre tarjetas */
+}
+
+/* MENSAJES DE ESTADO VACÍO (El Pochoclo 🍿) */
 .mensajeVacio {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 60px 20px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 2px dashed var(--color-primario, #4a90e2); /* Usa el color del proyecto */
-  border-radius: 20px;
-  color: #888;
+  padding: 40px 20px;
+  color: #000000;
   text-align: center;
+  font-style: italic;
+  background: rgba(0,0,0,0.02);
+  border-radius: 15px;
   margin-top: 20px;
 }
 
-.iconoVacio {
-  font-size: 4rem;
-  margin-bottom: 15px;
-}
-
-/* --- Secciones de las Listas (Pendientes y Vistas) --- */
-.seccionLista {
-  margin-bottom: 40px;
-}
-
-.subtitulo {
-  color: var(--color-primario, #4a90e2);
-  font-size: 1.8rem;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.contenedorLista {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-/* --- Mensajes de información interna --- */
-.mensajeInfo {
-  color: #777;
-  font-style: italic;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 10px;
-  grid-column: 1 / -1; 
-}
-
-.separador {
-  border: 0;
-  border-top: 1px dashed #444;
-  margin: 40px 0;
-}
-
-/* --- Elementos de Prueba --- */
-.botonPrueba {
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  transition: background 0.3s;
-}
-
-.botonPrueba:hover {
-  background-color: #555;
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .dashboardListas {
+    flex-direction: column; /* Se apilan en celulares */
+  }
+  
+  .columna {
+    width: 100%;
+    min-height: auto;
+  }
 }

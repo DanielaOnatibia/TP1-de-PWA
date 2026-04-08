@@ -2,7 +2,7 @@ import styles from "./Home.module.css";
 import Titulo from "../../Components/Titulo/Titulo";
 import Formulario from "../../Components/Formulario/Formulario";
 import SelectorGeneral from "../../Components/SelectorGeneral/SelectorGeneral";
-import CardPelicula from "../../Components/CardPelicula/CardPelicula"; // AGREGADO
+import CardPelicula from "../../Components/CardPelicula/CardPelicula";
 import { useState, useEffect } from "react";
 
 export function Home() {
@@ -16,7 +16,6 @@ export function Home() {
     localStorage.setItem("mis_pelis", JSON.stringify(peliculas));
   }, [peliculas]);
 
-  // Funciones de control (Agregadas para que no de error)
   const eliminarPelicula = (id) => {
     setPeliculas(peliculas.filter(p => p.id !== id));
   };
@@ -30,10 +29,10 @@ export function Home() {
   const agregarPelicula = () => {
     const nuevaPeli = {
       id: Date.now(),
-      titulo: "Nueva Peli de Prueba",
+      titulo: "Nueva Peli",
       director: "Director",
       anio: 2024,
-      genero: "Terror",
+      genero: "Acción",
       rating: 5,
       tipo: "pelicula",
       esVista: false,
@@ -41,81 +40,83 @@ export function Home() {
     setPeliculas([...peliculas, nuevaPeli]);
   };
 
-  const generoPelis = ["Acción", "Comedia", "Drama", "Terror", "Ciencia Ficción", "Documental"];
+  // --- LÓGICA DE ESTADÍSTICAS (Para los contadores de la imagen) ---
+  const obtenerStats = (lista) => {
+    const stats = { Total: lista.length };
+    lista.forEach(p => {
+      stats[p.genero] = (stats[p.genero] || 0) + 1;
+    });
+    return stats;
+  };
+
+  const pelisPorVer = peliculas.filter(p => !p.esVista);
+  const pelisVistas = peliculas.filter(p => p.esVista);
+
+  const statsPorVer = obtenerStats(pelisPorVer);
+  const statsVistas = obtenerStats(pelisVistas);
 
   return (
     <div className={styles.container}>
-      <Titulo texto="Mi Aplicación PWA" />
-      <Formulario setPeliculas={setPeliculas} peliculas={peliculas} />
+      <Titulo texto="GESTOR DE PELÍCULAS Y SERIES" />
       
-      <SelectorGeneral
-        label="Género de la película"
-        options={generoPelis}
-        value={generoElegido}
-        onChange={setGeneroElegido}
-      />
+      {/* ESPACIO PARA BUSCADOR Y FILTROS (Tarea de Abril) */}
+      <div className={styles.zonaFiltros}>
+        <p>🔍 Buscador y Filtros (Próximamente)</p>
+      </div>
 
-     <div className={styles.contenedorPrincipalListas}>
-  <h1>Mis Películas</h1>
-  <button onClick={agregarPelicula} className={styles.botonPrueba}>
-    + Agregar Prueba
-  </button>
+      <button onClick={agregarPelicula} className={styles.botonPrueba}>+ Agregar Prueba</button>
 
-  {/* 1. NIVEL: ¿LA APP ESTÁ TOTALMENTE VACÍA? */}
-  {peliculas.length === 0 ? (
-    <div className={styles.mensajeVacio}>
-      <span className={styles.iconoVacio}>🍿</span>
-      <p>Tu lista está vacía. ¡Agregá una película o serie para empezar!</p>
+      {/* CONTENEDOR PRINCIPAL LADO A LADO */}
+      <div className={styles.dashboardListas}>
+        
+       {/* ESTE DIV ES EL SECRETO: Envuelve a las dos columnas */}
+<div className={styles.dashboardListas}>
+
+  {/* COLUMNA 1: POR VER */}
+  <section className={styles.columna}>
+    <div className={styles.headerListaPorVer}>
+      <h2>CONTENIDO POR VER</h2>
     </div>
-  ) : (
-    /* 2. NIVEL: SI HAY AL MENOS UNA PELI, MOSTRAMOS LAS SECCIONES */
-    <>
-      {/* SECCIÓN: POR VER */}
-      <section className={styles.seccionLista}>
-        <h2 className={styles.subtitulo}>🕒 Por ver</h2>
-        <div className={styles.contenedorLista}>
-          {peliculas.filter((p) => !p.esVista).length === 0 ? (
-            <p className={styles.mensajeInfo}>¡No tenés nada pendiente! 🥳</p>
-          ) : (
-            peliculas
-              .filter((p) => !p.esVista)
-              .map((peli) => (
-                <CardPelicula
-                  key={peli.id}
-                  item={peli}
-                  onEliminar={eliminarPelicula}
-                  onCambiarEstado={cambiarEstado}
-                />
-              ))
-          )}
-        </div>
-      </section>
+    <div className={styles.stats}>
+      <p><strong>Total:</strong> {statsPorVer.Total} items</p>
+      <p>Acción: {statsPorVer.Acción || 0}, Comedia: {statsPorVer.Comedia || 0}, Terror: {statsPorVer.Terror || 0}</p>
+    </div>
 
-      <hr className={styles.separador} />
+    <div className={styles.listadoCards}>
+      {pelisPorVer.length === 0 ? (
+        <p className={styles.mensajeVacio}>No hay pendientes 🍿</p>
+      ) : (
+        pelisPorVer.map(p => (
+          <CardPelicula key={p.id} item={p} onEliminar={eliminarPelicula} onCambiarEstado={cambiarEstado} />
+        ))
+      )}
+    </div>
+  </section>
 
-      {/* SECCIÓN: YA VISTAS */}
-      <section className={styles.seccionLista}>
-        <h2 className={styles.subtitulo}>✅ Ya las vi</h2>
-        <div className={styles.contenedorLista}>
-          {peliculas.filter((p) => p.esVista).length === 0 ? (
-            <p className={styles.mensajeInfo}>Todavía no terminaste ninguna. 🎬</p>
-          ) : (
-            peliculas
-              .filter((p) => p.esVista)
-              .map((peli) => (
-                <CardPelicula
-                  key={peli.id}
-                  item={peli}
-                  onEliminar={eliminarPelicula}
-                  onCambiarEstado={cambiarEstado}
-                />
-              ))
-          )}
-        </div>
-      </section>
-    </>
-  )}
+  {/* COLUMNA 2: VISTO */}
+  <section className={styles.columna}>
+    <div className={styles.headerListaVisto}>
+      <h2>CONTENIDO VISTO</h2>
+    </div>
+    <div className={styles.stats}>
+      <p><strong>Total:</strong> {statsVistas.Total} items</p>
+      <p>Acción: {statsVistas.Acción || 0}, Comedia: {statsVistas.Comedia || 0}, Terror: {statsVistas.Terror || 0}</p>
+    </div>
+
+    <div className={styles.listadoCards}>
+      {pelisVistas.length === 0 ? (
+        <p className={styles.mensajeVacio}>Todavía no viste nada 🎬</p>
+      ) : (
+        pelisVistas.map(p => (
+          <CardPelicula key={p.id} item={p} onEliminar={eliminarPelicula} onCambiarEstado={cambiarEstado} />
+        ))
+      )}
+    </div>
+  </section>
+
 </div>
+
+      </div>
     </div>
   );
 }
