@@ -1,0 +1,47 @@
+/* Contenedor principal que envuelve la lupa y el input */
+.contenedorBuscador {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-tarjeta);
+  border: 1px solid var(--borde-color);
+  border-radius: var(--borde-radio);
+  padding: 0.5rem 1rem;
+  box-shadow: var(--sombra-caja);
+  transition: var(--transicion-suave);
+  width: 100%;
+  max-width: 600px; 
+  margin: 0 auto; 
+}
+
+/* Efecto focus: cuando el usuario hace clic adentro, nos enfocamos en todo el contenedor */
+.contenedorBuscador:focus-within {
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 2px rgba(32, 178, 170, 0.2);
+}
+
+/* Estilos para el ícono de la lupa */
+.iconoLupa {
+  color: var(--texto-secundario);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+}
+
+/* El campo de texto */
+.inputBuscador {
+  flex: 1; 
+  border: none; 
+  background: transparent;
+  color: var(--texto-principal);
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0;
+  outline: none; 
+}
+
+/* Estilo para el texto "Buscar por título o director..." */
+.inputBuscador::placeholder {
+  color: var(--texto-secundario);
+  opacity: 0.8;
+}

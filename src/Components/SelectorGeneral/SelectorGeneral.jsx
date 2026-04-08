@@ -1,17 +1,25 @@
 import style from "./SelectorGeneral.module.css";
 
-const SelectorGeneral = ({ label, options, value, onChange }) => {
+const SelectorGeneral = ({
+  label,
+  options = [],
+  value,
+  onChange,
+  className,
+}) => {
   // Generamos un id único basado en el label para accesibilidad
-  const idSelect = `select-${label.replace(/\s+/g, '-').toLowerCase()}`;
+  const idSelect = `select-${label.replace(/\s+/g, "-").toLowerCase()}`;
 
   return (
     <div className={style.container}>
-      <label htmlFor={idSelect} className={style.labelText}>{label}</label>
+      <label htmlFor={idSelect} className={style.labelText}>
+        {label}
+      </label>
       <select
         id={idSelect}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={style.selectCampus}
+        className={`${style.selectCampus} ${className || ""}`}
       >
         <option value=""> -- Seleccione una opción -- </option>
         {options.map((opcion, index) => (

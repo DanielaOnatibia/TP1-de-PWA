@@ -1,37 +1,38 @@
 /* --- ESTRUCTURA GENERAL --- */
 .container {
-  max-width:200%;  
-  width: 100%;     /* Pero con un tope para que no se deforme en monitores gigantes */
+  width: 100%;
+  max-width: 20000px; /* Un tope para que no se estire al infinito en monitores 4K */
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #bfdce9; /* color de fondo suave */
+  background-color: #bfdce9; /* Fondo suave que elegiste */
   min-height: 100vh;
 }
 
 /* ESPACIO PARA FILTROS (Tarea de Abril) */
 .zonaFiltros {
-  background: rgb(151, 195, 239); /*color de buscado*/
+  background: rgb(151, 195, 239);
   border: 2px solid #a5b0bd;
   border-radius: 15px;
   padding: 25px;
   margin-bottom: 30px;
   text-align: center;
-  color: #2c536f; /*letra de buscador*/
+  color: #2c536f;
   font-style: italic;
-  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.1);
+  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.2);
 }
 
 /* --- BOTONES Y UTILIDADES --- */
 .botonPrueba {
-  background-color: #3a6fc3; /*color de boton agregar*/
-  color: rgb(255, 255, 255);
+  background-color: #3a6fc3;
+  color: white;
   padding: 10px 20px;
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
+  border: none;
   margin-bottom: 20px;
-  transition: transform 0.2s;
+  transition: transform 0.2s, background-color 0.2s;
 }
 
 .botonPrueba:hover {
@@ -40,25 +41,22 @@
 }
 
 /* --- EL DASHBOARD (LISTAS EN PARALELO) --- */
-/* 2. Aseguramos que el dashboard ocupe el 100% del contenedor */
 .dashboardListas {
   display: flex;
   flex-direction: row;
-  gap: 60px;           /* Aumentamos un poco el espacio entre columnas */
+  gap: 40px; /* Espacio equilibrado entre columnas */
   align-items: flex-start;
-  width: 100%;         /* Forzamos a que use todo el ancho disponible */
+  width: 100%;
 }
 
-
 /* CADA COLUMNA (Contenido Por Ver y Visto) */
-/*Ajustamos las columnas para que crezcan */
 .columna {
-  flex: 1;           /* Esto hace que se repartan el 50% cada una */
-  min-width: 40px;
-  background: rgb(19, 24, 35); /*color de fondo de las listas*/
+  flex: 1;
+  min-width: 300px;
+  background: rgb(19, 24, 35); /* Fondo oscuro de las listas */
   border: 2px solid #c4bafa;
   border-radius: 20px;
-  padding: 50px; /* Más aire adentro de la caja */
+  padding: 30px; /* Ajustado para que no sea excesivo */
 }
 
 .headerListaPorVer h2, 
@@ -87,39 +85,61 @@
 }
 
 .stats strong {
-  color: #787878;
+  color: #2c536f;
 }
 
 /* CONTENEDOR DE TARJETAS */
 .listadoCards {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Espacio vertical entre tarjetas */
+  gap: 15px;
 }
 
-/* MENSAJES DE ESTADO VACÍO (El Pochoclo 🍿) */
+/* MENSAJES DE ESTADO VACÍO */
 .mensajeVacio {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  color: #000000;
+  color: #ffffff; /* Blanco para que resalte sobre el fondo oscuro de la columna */
   text-align: center;
   font-style: italic;
-  background: rgba(0,0,0,0.02);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   margin-top: 20px;
 }
 
-/* --- RESPONSIVE --- */
+/* --- SECCIÓN DE FILTROS DE LOS CHICOS --- */
+.seccionFiltros {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px; /* Corregido: Ahora es ancho como el Dashboard */
+  margin: 0 auto 20px auto;   
+}
+
+.flexFiltros {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+/* --- RESPONSIVE (Ajustes para celulares) --- */
 @media (max-width: 900px) {
   .dashboardListas {
-    flex-direction: column; /* Se apilan en celulares */
+    flex-direction: column;
   }
   
   .columna {
     width: 100%;
     min-height: auto;
+  }
+
+  .flexFiltros {
+    flex-direction: column;
+    align-items: center;
   }
 }
