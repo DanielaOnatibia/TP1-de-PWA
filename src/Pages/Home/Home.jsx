@@ -116,7 +116,14 @@ export function Home() {
           </div>
           <div className={styles.stats}>
             <p><strong>Total:</strong> {statsPorVer.Total} items</p>
-            <p>Acción: {statsPorVer.Acción || 0}, Comedia: {statsPorVer.Comedia || 0}, Terror: {statsPorVer.Terror || 0}</p>
+          <p>
+              Acción: {statsPorVer.Acción || 0}, 
+              Comedia: {statsPorVer.Comedia || 0}, 
+              Drama: {statsPorVer.Drama || 0}, 
+              Terror: {statsPorVer.Terror || 0}, 
+              Ciencia Ficción: {statsPorVer["Ciencia Ficción"] || 0}, 
+              Documental: {statsPorVer.Documental || 0}
+          </p>          
           </div>
 
           <div className={styles.listadoCards}>
@@ -137,8 +144,15 @@ export function Home() {
           </div>
           <div className={styles.stats}>
             <p><strong>Total:</strong> {statsVistas.Total} items</p>
-            <p>Acción: {statsVistas.Acción || 0}, Comedia: {statsVistas.Comedia || 0}, Terror: {statsVistas.Terror || 0}</p>
-          </div>
+            <p>
+                Acción: {statsVistas.Acción || 0}, 
+                Comedia: {statsVistas.Comedia || 0}, 
+                Drama: {statsVistas.Drama || 0}, 
+                Terror: {statsVistas.Terror || 0}, 
+                Ciencia Ficción: {statsVistas["Ciencia Ficción"] || 0}, 
+                Documental: {statsVistas.Documental || 0}
+            </p>          
+            </div>
 
           <div className={styles.listadoCards}>
             {pelisVistas.length === 0 ? (
