@@ -45,7 +45,7 @@
 .dashboardListas {
   display: flex;
   flex-direction: row;
-  gap: 40px; /* Espacio equilibrado entre columnas */
+  gap: 40px;
   align-items: flex-start;
   width: 100%;
 }
