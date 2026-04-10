@@ -5,6 +5,7 @@ import CardPelicula from "../../Components/CardPelicula/CardPelicula";
 import Buscador from "../../Components/Buscador/Buscador";
 import Filtrado from "../../Components/Filtrado/Filtrado";
 import Orden from "../../Components/Orden/Orden";
+import Footer from "../../Components/Footer/Footer";
 import { useState, useEffect } from "react";
 
 export function Home() {
@@ -19,7 +20,14 @@ export function Home() {
     return datosGuardados ? JSON.parse(datosGuardados) : [];
   });
 
-  const generoPelis = ["Acción", "Comedia", "Drama", "Terror", "Ciencia Ficción", "Documental"];
+  const generoPelis = [
+    "Acción",
+    "Comedia",
+    "Drama",
+    "Terror",
+    "Ciencia Ficción",
+    "Documental",
+  ];
 
   useEffect(() => {
     localStorage.setItem("mis_pelis", JSON.stringify(peliculas));
@@ -32,7 +40,7 @@ export function Home() {
 
   const cambiarEstado = (id) => {
     setPeliculas(
-      peliculas.map((p) => (p.id === id ? { ...p, esVista: !p.esVista } : p))
+      peliculas.map((p) => (p.id === id ? { ...p, esVista: !p.esVista } : p)),
     );
   };
 
@@ -53,14 +61,14 @@ export function Home() {
   // --- LÓGICA DE ESTADÍSTICAS ---
   const obtenerStats = (lista) => {
     const stats = { Total: lista.length };
-    lista.forEach(p => {
+    lista.forEach((p) => {
       stats[p.genero] = (stats[p.genero] || 0) + 1;
     });
     return stats;
   };
 
-  const pelisPorVer = peliculas.filter(p => !p.esVista);
-  const pelisVistas = peliculas.filter(p => p.esVista);
+  const pelisPorVer = peliculas.filter((p) => !p.esVista);
+  const pelisVistas = peliculas.filter((p) => p.esVista);
 
   const statsPorVer = obtenerStats(pelisPorVer);
   const statsVistas = obtenerStats(pelisVistas);
@@ -68,7 +76,7 @@ export function Home() {
   return (
     <div className={styles.container}>
       <Titulo texto="GESTOR DE PELÍCULAS Y SERIES" />
-      
+
       {/* ZONA DE FILTROS */}
       <section className={styles.zonaFiltros}>
         <Buscador
@@ -77,59 +85,53 @@ export function Home() {
         />
 
         <div className={styles.flexFiltros}>
-            <Filtrado
-              filtroGenero={filtroGenero}
-              setFiltroGenero={setFiltroGenero}
-              filtroTipo={filtroTipo}
-              setFiltroTipo={setFiltroTipo}
-            />
+          <Filtrado
+            filtroGenero={filtroGenero}
+            setFiltroGenero={setFiltroGenero}
+            filtroTipo={filtroTipo}
+            setFiltroTipo={setFiltroTipo}
+          />
 
-            <Orden
-              parametroOrden={parametroOrden}
-              setParametroOrden={setParametroOrden}
-              direccionOrden={direccionOrden}
-              setDireccionOrden={setDireccionOrden}
-            />
+          <Orden
+            parametroOrden={parametroOrden}
+            setParametroOrden={setParametroOrden}
+            direccionOrden={direccionOrden}
+            setDireccionOrden={setDireccionOrden}
+          />
         </div>
       </section>
 
-      {/* FORMULARIO Y BOTONES */}
-      <Formulario
-        setPeliculas={setPeliculas}
-        peliculas={peliculas}
-        generoPelis={generoPelis}
-      />
-      
-      <button onClick={agregarPelicula} className={styles.botonPrueba}>
-        + Agregar Prueba
-      </button>
-
       {/* DASHBOARD DE LISTAS */}
       <div className={styles.dashboardListas}>
-        
         {/* COLUMNA 1: POR VER */}
         <section className={styles.columna}>
           <div className={styles.headerListaPorVer}>
             <h2>CONTENIDO POR VER</h2>
           </div>
           <div className={styles.stats}>
-            <p><strong>Total:</strong> {statsPorVer.Total} items</p>
-          <p>
-              Acción: {statsPorVer.Acción || 0}, 
-              Comedia: {statsPorVer.Comedia || 0}, 
-              Drama: {statsPorVer.Drama || 0}, 
-              Terror: {statsPorVer.Terror || 0}, 
-              Ciencia Ficción: {statsPorVer["Ciencia Ficción"] || 0}, 
-              Documental: {statsPorVer.Documental || 0}
-          </p>          
+            <p>
+              <strong>Total:</strong> {statsPorVer.Total} items
+            </p>
+            <p>
+              Acción: {statsPorVer.Acción || 0}, Comedia:{" "}
+              {statsPorVer.Comedia || 0}, Drama: {statsPorVer.Drama || 0},
+              Terror: {statsPorVer.Terror || 0}, Ciencia Ficción:{" "}
+              {statsPorVer["Ciencia Ficción"] || 0}, Documental:{" "}
+              {statsPorVer.Documental || 0}
+            </p>
           </div>
 
           <div className={styles.listadoCards}>
             {pelisPorVer.length === 0 ? (
               <p className={styles.mensajeVacio}>No hay pendientes 🍿</p>
             ) : (
-              pelisPorVer.map(p => (
-                <CardPelicula key={p.id} item={p} onEliminar={eliminarPelicula} onCambiarEstado={cambiarEstado} />
+              pelisPorVer.map((p) => (
+                <CardPelicula
+                  key={p.id}
+                  item={p}
+                  onEliminar={eliminarPelicula}
+                  onCambiarEstado={cambiarEstado}
+                />
               ))
             )}
           </div>
@@ -141,29 +143,47 @@ export function Home() {
             <h2>CONTENIDO VISTO</h2>
           </div>
           <div className={styles.stats}>
-            <p><strong>Total:</strong> {statsVistas.Total} items</p>
             <p>
-                Acción: {statsVistas.Acción || 0}, 
-                Comedia: {statsVistas.Comedia || 0}, 
-                Drama: {statsVistas.Drama || 0}, 
-                Terror: {statsVistas.Terror || 0}, 
-                Ciencia Ficción: {statsVistas["Ciencia Ficción"] || 0}, 
-                Documental: {statsVistas.Documental || 0}
-            </p>          
-            </div>
+              <strong>Total:</strong> {statsVistas.Total} items
+            </p>
+            <p>
+              Acción: {statsVistas.Acción || 0}, Comedia:{" "}
+              {statsVistas.Comedia || 0}, Drama: {statsVistas.Drama || 0},
+              Terror: {statsVistas.Terror || 0}, Ciencia Ficción:{" "}
+              {statsVistas["Ciencia Ficción"] || 0}, Documental:{" "}
+              {statsVistas.Documental || 0}
+            </p>
+          </div>
 
           <div className={styles.listadoCards}>
             {pelisVistas.length === 0 ? (
               <p className={styles.mensajeVacio}>Todavía no viste nada 🎬</p>
             ) : (
-              pelisVistas.map(p => (
-                <CardPelicula key={p.id} item={p} onEliminar={eliminarPelicula} onCambiarEstado={cambiarEstado} />
+              pelisVistas.map((p) => (
+                <CardPelicula
+                  key={p.id}
+                  item={p}
+                  onEliminar={eliminarPelicula}
+                  onCambiarEstado={cambiarEstado}
+                />
               ))
             )}
           </div>
         </section>
-
       </div>
+
+      {/* FORMULARIO Y BOTONES */}
+      <Formulario
+        setPeliculas={setPeliculas}
+        peliculas={peliculas}
+        generoPelis={generoPelis}
+      />
+
+      <button onClick={agregarPelicula} className={styles.botonPrueba}>
+        + Agregar Prueba
+      </button>
+      
+      <Footer />
     </div>
   );
 }
