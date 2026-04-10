@@ -1,17 +1,19 @@
 /* --- ESTRUCTURA GENERAL --- */
 .container {
   width: 100%;
-  max-width: 20000px; /* Un tope para que no se estire al infinito en monitores 4K */
+  max-width: 20000px; 
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #bfdce9; /* Fondo suave que elegiste */
+  background-color: #b4d9ea; 
   min-height: 100vh;
 }
 
-/* ESPACIO PARA FILTROS (Tarea de Abril) */
+
+
+/* ESPACIO PARA FILTROS  */
 .zonaFiltros {
-  background: rgb(151, 195, 239);
+  background: rgba(76, 139, 197, 0.521);
   border: 2px solid #a5b0bd;
   border-radius: 15px;
   padding: 25px;
@@ -19,7 +21,6 @@
   text-align: center;
   color: #2c536f;
   font-style: italic;
-  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.2);
 }
 
 /* --- BOTONES Y UTILIDADES --- */
@@ -49,14 +50,14 @@
   width: 100%;
 }
 
-/* CADA COLUMNA (Contenido Por Ver y Visto) */
+/* (Contenido Por Ver y Visto) */
 .columna {
   flex: 1;
   min-width: 300px;
-  background: rgb(19, 24, 35); /* Fondo oscuro de las listas */
+  background: rgb(19, 24, 35); 
   border: 2px solid #c4bafa;
   border-radius: 20px;
-  padding: 30px; /* Ajustado para que no sea excesivo */
+  padding: 30px; 
 }
 
 .headerListaPorVer h2, 
@@ -75,17 +76,17 @@
 
 /* SECCIÓN DE ESTADÍSTICAS */
 .stats {
-  background: #bfd6ec;
+  background: #90adc9ea;
   margin-bottom: 20px;
   padding: 12px;
   border-radius: 10px;
   font-size: 0.85rem;
   line-height: 1.5;
-  color: #4a4c53;
+  color: #0f0c45;
 }
 
 .stats strong {
-  color: #2c536f;
+  color: #01121e;
 }
 
 /* CONTENEDOR DE TARJETAS */
@@ -102,7 +103,7 @@
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  color: #ffffff; /* Blanco para que resalte sobre el fondo oscuro de la columna */
+  color: #ffffff; 
   text-align: center;
   font-style: italic;
   background: rgba(255, 255, 255, 0.05);
@@ -110,12 +111,12 @@
   margin-top: 20px;
 }
 
-/* --- SECCIÓN DE FILTROS DE LOS CHICOS --- */
+/* --- SECCIÓN DE FILTROS  --- */
 .seccionFiltros {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 1200px; /* Corregido: Ahora es ancho como el Dashboard */
+  max-width: 1200px; 
   margin: 0 auto 20px auto;   
 }
 
@@ -127,7 +128,7 @@
   flex-wrap: wrap;
 }
 
-/* --- RESPONSIVE (Ajustes para celulares) --- */
+/*  RESPONSIVE (Ajustes para celulares) */
 @media (max-width: 900px) {
   .dashboardListas {
     flex-direction: column;

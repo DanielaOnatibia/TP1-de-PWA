@@ -8,14 +8,12 @@ import Orden from "../../Components/Orden/Orden";
 import { useState, useEffect } from "react";
 
 export function Home() {
-  // --- ESTADOS DE LOS CHICOS (Buscador y Filtros) ---
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [filtroGenero, setFiltroGenero] = useState("");
   const [filtroTipo, setFiltroTipo] = useState("");
   const [parametroOrden, setParametroOrden] = useState("anio");
   const [direccionOrden, setDireccionOrden] = useState("desc");
 
-  // --- TUS ESTADOS (Lista y LocalStorage) ---
   const [peliculas, setPeliculas] = useState(() => {
     const datosGuardados = localStorage.getItem("mis_pelis");
     return datosGuardados ? JSON.parse(datosGuardados) : [];
@@ -71,7 +69,7 @@ export function Home() {
     <div className={styles.container}>
       <Titulo texto="GESTOR DE PELÍCULAS Y SERIES" />
       
-      {/* ZONA DE FILTROS (Aquí integramos lo de Abril y Erick) */}
+      {/* ZONA DE FILTROS */}
       <section className={styles.zonaFiltros}>
         <Buscador
           busqueda={textoBusqueda}
