@@ -78,20 +78,22 @@ const CardPelicula = ({ item, onCambiarEstado, onEditar, onEliminar }) => {
       </div>
       <Modal booleano={verModal} onClose={() => setVerModal(false)}>
         <img src={item.portada} alt="Imagen" />
-        <h2>{item.titulo}</h2>
-        <div className={styles.cuerpo}>
-          <p>
-            <strong>Director:</strong> {item.director}
-          </p>
-          <p>
-            <strong>Año:</strong> {item.anio}
-          </p>
-          <p>
-            <strong>Género:</strong> {item.genero}
-          </p>
-          <p>
-            <strong>Rating:</strong> ⭐ {item.rating}
-          </p>
+        <div className={styles.bloqueTexto}>
+          <h2>{item.titulo}</h2>
+          <div className={styles.cuerpo}>
+            <p>
+              <strong>Director:</strong> {item.director}
+            </p>
+            <p>
+              <strong>Año:</strong> {item.anio}
+            </p>
+            <p>
+              <strong>Género:</strong> {item.genero}
+            </p>
+            <p>
+              <strong>Rating:</strong> ⭐ {item.rating}
+            </p>
+          </div>
         </div>
       </Modal>
     </div>

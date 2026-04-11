@@ -13,7 +13,7 @@
 
 .contenedor {
   background-color: rgb(255, 255, 255);
-  padding: 24px;
+  padding: 32px;
   border-radius: 12px;
   width: 90%;
   max-height: 85vh;
@@ -21,17 +21,17 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   position: relative;
 }
 
 .contenedor img {
-  width: 100%;
+  display: block;
+  margin: 0 auto 0 auto;
   max-height: 250px;
-  object-fit: contain;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  width: auto;
+  border-radius: 12px;
 }
 
 .botonCerrar {
@@ -40,4 +40,10 @@
   right: 10px;
   background: none;
   cursor: pointer;
+}
+
+.bloqueTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
