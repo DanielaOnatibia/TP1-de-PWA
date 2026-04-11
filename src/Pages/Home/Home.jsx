@@ -131,6 +131,7 @@ export function Home() {
                   item={p}
                   onEliminar={eliminarPelicula}
                   onCambiarEstado={cambiarEstado}
+                  // onClick={}
                 />
               ))
             )}
