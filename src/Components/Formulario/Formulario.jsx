@@ -3,6 +3,14 @@ import { useState } from "react";
 import SelectorGeneral from "../SelectorGeneral/SelectorGeneral";
 import styles from "./Formulario.module.css";
 
+const archivoABase64 = (archivo) => {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(archivo);
+    reader.onload = () => resolve(reader.result);
+  });
+};
+
 const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
   const [titulo, setTitulo] = useState("");
   const [director, setDirector] = useState("");
@@ -12,8 +20,33 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
   const [tipo, setTipo] = useState("");
   const [esVista, setEsVista] = useState(false);
   const [enviado, setEnviado] = useState(false);
+  const [imagen, setImagen] = useState(null);
 
-  const handleEnviar = (e) => {
+  const handleImagen = (e) => {
+    const archivo = e.target.files[0];
+
+    if (!archivo) {
+      return;
+    }
+
+    const formatosValidos = ["image/jpg", "image/png", "image/webp"];
+    if (!formatosValidos.includes(archivo.type)) {
+      alert("Formato no permitido. Usa JPG, PNG o WEBP.");
+      e.target.value = "";
+      return;
+    }
+
+    const limitePeso = 2 * 1024 * 1024;
+    if (archivo.size > limitePeso) {
+      alert("La imagen es muy pesada. El maximo es 2MB");
+      e.target.value = "";
+      return;
+    }
+
+    setImagen(archivo);
+  };
+
+  const handleEnviar = async (e) => {
     e.preventDefault();
     setEnviado(true);
     if (
@@ -24,13 +57,17 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
       rating === "" ||
       tipo === ""
     ) {
-      alert("Por favor, completa los campos obligatorios");
-      return; //Cortamos la funcion para no guardar nada
+      return false; //Cortamos la funcion para no guardar nada
+    }
+    let imagenFinal = "";
+    if (imagen) {
+      imagenFinal = await archivoABase64(imagen);
     }
     const nuevaPeli = {
       id: Date.now(),
       titulo: titulo,
       director: director,
+      portada: imagenFinal,
       anio: anio,
       genero: genero,
       rating: rating,
@@ -46,6 +83,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
     setGenero("");
     setRating("");
     setTipo("");
+    setImagen(null);
     setEnviado(false);
   };
 
@@ -61,7 +99,6 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
         onChange={(e) => setTitulo(e.target.value)}
         className={`${styles.inputField} ${enviado && titulo === "" ? styles.inputError : ""}`}
       />
-
       <input
         type="text"
         placeholder="Director"
@@ -69,7 +106,6 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
         onChange={(e) => setDirector(e.target.value)}
         className={`${styles.inputField} ${enviado && director === "" ? styles.inputError : ""}`}
       />
-
       <input
         type="number"
         placeholder="Año"
@@ -77,15 +113,13 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
         onChange={(e) => setAnio(Number(e.target.value))}
         className={`${styles.inputField} ${enviado && anio === "" ? styles.inputError : ""}`}
       />
-
       <SelectorGeneral
         label="Género"
         options={generoPelis}
         value={genero}
         onChange={setGenero}
-        className={`${enviado && genero === "" ? styles.inputError : ""}`}
+        className={` ${styles.selectores}${enviado && genero === "" ? styles.inputError : ""}`}
       />
-
       <input
         type="number"
         placeholder="Rating"
@@ -93,14 +127,29 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
         onChange={(e) => setRating(Number(e.target.value))}
         className={`${styles.inputField} ${enviado && rating === "" ? styles.inputError : ""}`}
       />
-
       <SelectorGeneral
         label="Tipo"
         options={tipoPeli}
         value={tipo}
         onChange={setTipo}
-        className={`${enviado && tipo === "" ? styles.inputError : ""}`}
+        className={` ${styles.selectores}${enviado && tipo === "" ? styles.inputError : ""}`}
       />
+
+      <div className={styles.archivoContainer}>
+        <label htmlFor="subir-portada" className={styles.archivoButton}>
+          {imagen ? "✅ Imagen seleccionada" : "📸 Elegir portada de peli"}
+        </label>
+
+        <input
+          id="subir-portada"
+          type="file"
+          accept="image/*"
+          onChange={handleImagen}
+          className={`${styles.hiddenArchivo}`}
+        />
+
+        {imagen && <p className={styles.nombreArchivo}>{imagen.name}</p>}
+      </div>
 
       <button type="submit" className={styles.buttonSubmit}>
         Guardar Película
