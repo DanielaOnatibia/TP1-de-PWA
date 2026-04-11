@@ -16,14 +16,21 @@ const CardPelicula = ({ item, onCambiarEstado, onEditar, onEliminar }) => {
       /* CAMBIO 1: Se quitó el acento en "pelicula" para coincidir con Erick */
       className={`${styles.card} ${item.tipo === "pelicula" ? styles.bordePelicula : styles.bordeSerie}`}
     >
+      <div className={styles.contenedorImagen}>
+        <img
+          src={item.portada || "https://via.placeholder.com/150"}
+          alt={item.titulo}
+          className={styles.imagenCard}
+        />
+        <span className={styles.etiquetaTipo}>{item.tipo}</span>
+      </div>
       <div className={styles.cabecera}>
         <h3 className={styles.titulo} title={item.titulo}>
           {item.titulo}
         </h3>
-        <span className={styles.etiquetaTipo}>{item.tipo}</span>
       </div>
 
-      <div className={styles.cuerpo}>
+      {/* <div className={styles.cuerpo}>
         <p>
           <strong>Director:</strong> {item.director}
         </p>
@@ -36,22 +43,19 @@ const CardPelicula = ({ item, onCambiarEstado, onEditar, onEliminar }) => {
         <p>
           <strong>Rating:</strong> ⭐ {item.rating}
         </p>
-      </div>
+      </div> */}
 
       <div className={styles.acciones}>
-        {/* CAMBIO 2: Se usa !item.esVista (booleano) en lugar del string "por ver" */}
         {!item.esVista ? (
           <Button
             texto="Marcar como vista"
             color="var(--color-primario)"
-            /* CAMBIO 3: Se quita el segundo parámetro "vista" para simplificar la lógica de Erick */
             onClick={() => onCambiarEstado(item.id)}
           />
         ) : (
           <Button
             texto="Volver a pendientes"
             color="var(--color-secundario)"
-            /* CAMBIO 4: Se quita el segundo parámetro "por ver" */
             onClick={() => onCambiarEstado(item.id)}
           />
         )}

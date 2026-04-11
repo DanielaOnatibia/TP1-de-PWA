@@ -182,7 +182,7 @@ export function Home() {
       <button onClick={agregarPelicula} className={styles.botonPrueba}>
         + Agregar Prueba
       </button>
-      
+
       <Footer />
     </div>
   );
