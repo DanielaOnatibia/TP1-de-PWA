@@ -127,7 +127,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerra
 
   return (
     <form onSubmit={handleEnviar} className={styles.formContainer}>
-      <h3>AGREGAR PELICULA</h3>
+      <h3>{peliAEditar ? "EDITAR PELÍCULA/SERIE" : "AGREGAR PELÍCULA/SERIE"}</h3>
       <input
         type="text"
         placeholder="Titulo"
@@ -188,7 +188,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerra
       </div>
 
       <button type="submit" className={styles.buttonSubmit}>
-        Guardar Película
+        {peliAEditar ? "Guardar Cambios" : "Guardar Película"}
       </button>
     </form>
   );

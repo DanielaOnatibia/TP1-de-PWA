@@ -145,3 +145,11 @@
     align-items: center;
   }
 }
+
+.contenedorFormularioCentro {
+  display: flex;
+  justify-content: center; /* Esto lo centra horizontalmente */
+  align-items: center;     /* Esto lo centra verticalmente */
+  width: 100%;            /* Para que use todo el ancho de la pantalla */
+  margin: 50px 0;         /* Para que no esté pegado a las columnas de arriba */
+}

@@ -183,11 +183,14 @@ export function Home() {
       </div>
 
       {/* FORMULARIO Y BOTONES */}
+
+      <div className={styles.contenedorFormularioCentro}>
       <Formulario
         setPeliculas={setPeliculas}
         peliculas={peliculas}
         generoPelis={generoPelis}
       />
+      </div>
 
       <button onClick={agregarPelicula} className={styles.botonPrueba}>
         + Agregar Prueba

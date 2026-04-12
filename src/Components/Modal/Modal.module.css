@@ -12,7 +12,7 @@
 }
 
 .contenedor {
-  background-color: rgb(255, 255, 255);
+  background-color:#67acde;
   padding: 32px;
   border-radius: 12px;
   width: 90%;
@@ -24,6 +24,10 @@
   gap: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   position: relative;
+  border: none;
+  padding: 0 !important; /* <--- QUITAMOS el espacio interno */
+  overflow: hidden;      /* Para que las esquinas del formulario no se salgan */
+  display: flex;         /* Ayuda a que el contenido se estire */
 }
 
 .contenedor img {
