@@ -6,7 +6,9 @@ import Buscador from "../../Components/Buscador/Buscador";
 import Filtrado from "../../Components/Filtrado/Filtrado";
 import Orden from "../../Components/Orden/Orden";
 import Footer from "../../Components/Footer/Footer";
+import Modal from "../../Components/Modal/Modal";
 import { useState, useEffect } from "react";
+
 
 export function Home() {
   const [textoBusqueda, setTextoBusqueda] = useState("");
@@ -14,6 +16,7 @@ export function Home() {
   const [filtroTipo, setFiltroTipo] = useState("");
   const [parametroOrden, setParametroOrden] = useState("anio");
   const [direccionOrden, setDireccionOrden] = useState("desc");
+  const [peliAEditar, setPeliAEditar] = useState(null);
 
   const [peliculas, setPeliculas] = useState(() => {
     const datosGuardados = localStorage.getItem("mis_pelis");
@@ -36,6 +39,11 @@ export function Home() {
   // --- FUNCIONES DE CONTROL ---
   const eliminarPelicula = (id) => {
     setPeliculas(peliculas.filter((p) => p.id !== id));
+  };
+
+  const guardarEdicion = (peliEditada) => {
+    setPeliculas(peliculas.map(p => p.id === peliEditada.id ? peliEditada : p));
+    setPeliAEditar(null); // Cerramos el modo edición
   };
 
   const cambiarEstado = (id) => {
@@ -131,7 +139,7 @@ export function Home() {
                   item={p}
                   onEliminar={eliminarPelicula}
                   onCambiarEstado={cambiarEstado}
-                  // onClick={}
+                  onEditar={setPeliAEditar}
                 />
               ))
             )}
@@ -166,6 +174,7 @@ export function Home() {
                   item={p}
                   onEliminar={eliminarPelicula}
                   onCambiarEstado={cambiarEstado}
+                  onEditar={setPeliAEditar}
                 />
               ))
             )}
@@ -183,6 +192,21 @@ export function Home() {
       <button onClick={agregarPelicula} className={styles.botonPrueba}>
         + Agregar Prueba
       </button>
+
+      {/* MODAL DE EDICIÓN (Se activa solo cuando peliAEditar no es null) */}
+      {peliAEditar && (
+        <Modal booleano={peliAEditar !== null} onClose={() => setPeliAEditar(null)}>
+          <Formulario
+            peliculas={peliculas}
+            setPeliculas={setPeliculas}
+            generoPelis={generoPelis}
+            peliAEditar={peliAEditar} 
+            onCerrarEdicion={() => setPeliAEditar(null)}
+          />
+        </Modal>
+      )}
+
+      <Footer />
 
       <Footer />
     </div>

@@ -11,7 +11,7 @@ const archivoABase64 = (archivo) => {
   });
 };
 
-const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
+const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerrarEdicion }) => {
   const [titulo, setTitulo] = useState("");
   const [director, setDirector] = useState("");
   const [anio, setAnio] = useState("");
@@ -21,6 +21,20 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
   const [esVista, setEsVista] = useState(false);
   const [enviado, setEnviado] = useState(false);
   const [imagen, setImagen] = useState(null);
+
+  // Este efecto detecta si hay una peli para editar y llena los campos
+  React.useEffect(() => {
+    if (peliAEditar) {
+      setTitulo(peliAEditar.titulo);
+      setDirector(peliAEditar.director);
+      setAnio(peliAEditar.anio);
+      setGenero(peliAEditar.genero);
+      setRating(peliAEditar.rating);
+      setTipo(peliAEditar.tipo);
+      // Nota: la imagen no se precarga por seguridad del navegador, 
+      // pero mantenemos la que ya tiene si no se sube una nueva.
+    }
+  }, [peliAEditar]);
 
   const handleImagen = (e) => {
     const archivo = e.target.files[0];
@@ -47,45 +61,67 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis }) => {
   };
 
   const handleEnviar = async (e) => {
-    e.preventDefault();
-    setEnviado(true);
-    if (
-      titulo === "" ||
-      director === "" ||
-      anio === "" ||
-      genero === "" ||
-      rating === "" ||
-      tipo === ""
-    ) {
-      return false; //Cortamos la funcion para no guardar nada
-    }
-    let imagenFinal = "";
-    if (imagen) {
-      imagenFinal = await archivoABase64(imagen);
-    }
+  e.preventDefault();
+  setEnviado(true);
+
+  if (
+    titulo === "" ||
+    director === "" ||
+    anio === "" ||
+    genero === "" ||
+    rating === "" ||
+    tipo === ""
+  ) {
+    return false; 
+  }
+
+  let imagenFinal = peliAEditar ? peliAEditar.portada : "";
+  if (imagen) {
+    imagenFinal = await archivoABase64(imagen);
+  }
+
+  if (peliAEditar) {
+    // MODO EDICIÓN
+    const peliActualizada = { 
+      ...peliAEditar, 
+      titulo, 
+      director, 
+      portada: imagenFinal, 
+      anio, 
+      genero, 
+      rating, 
+      tipo 
+    };
+
+    setPeliculas(peliculas.map(p => p.id === peliAEditar.id ? peliActualizada : p));
+    onCerrarEdicion();
+
+  } else {
+    // MODO AGREGAR
     const nuevaPeli = {
       id: Date.now(),
-      titulo: titulo,
-      director: director,
+      titulo,
+      director,
       portada: imagenFinal,
-      anio: anio,
-      genero: genero,
-      rating: rating,
-      tipo: tipo,
-      esVista: esVista,
+      anio,
+      genero,
+      rating,
+      tipo,
+      esVista: false,
     };
 
     setPeliculas([...peliculas, nuevaPeli]);
-    // Despues de guardar restablecemos los valores
-    setTitulo("");
-    setDirector("");
-    setAnio("");
-    setGenero("");
-    setRating("");
-    setTipo("");
-    setImagen(null);
-    setEnviado(false);
-  };
+  }
+
+  setTitulo("");
+  setDirector("");
+  setAnio("");
+  setGenero("");
+  setRating("");
+  setTipo("");
+  setImagen(null);
+  setEnviado(false);
+};
 
   const tipoPeli = ["pelicula", "serie", "documental"];
 

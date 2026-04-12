@@ -63,7 +63,7 @@ const CardPelicula = ({ item, onCambiarEstado, onEditar, onEliminar }) => {
             color="var(--color-secundario)"
             onClick={(e) => {
               e.stopPropagation();
-              onEditar(item.id);
+              onEditar(item);
             }}
           />
           <Button
@@ -71,7 +71,7 @@ const CardPelicula = ({ item, onCambiarEstado, onEditar, onEliminar }) => {
             color="var(--color-peligro)"
             onClick={(e) => {
               e.stopPropagation();
-              handleEliminar;
+              handleEliminar(); /*se habian eliminado los parentesis de la funcion pq no eliminaba correctamente*/
             }}
           />
         </div>
