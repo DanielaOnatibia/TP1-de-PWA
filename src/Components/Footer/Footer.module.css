@@ -5,8 +5,8 @@
   gap: 1.5rem;
   padding: 3rem 1.5rem;
   width: 100%;
-  margin-top: 4rem; 
-  border-top: 1px solid var(--borde-color); 
+  margin-top: 0;
+  border-top: 1px solid var(--borde-color);
   background-color: var(--bg-principal);
   color: var(--texto-secundario);
   text-align: center;
@@ -24,7 +24,11 @@
   max-width: 550px;
   padding: 1.5rem 2.5rem;
   border-radius: var(--borde-radio);
-  background: linear-gradient(135deg, rgba(70, 130, 180, 0.15) 0%, rgba(32, 178, 170, 0.15) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(70, 130, 180, 0.15) 0%,
+    rgba(32, 178, 170, 0.15) 100%
+  );
   border: 1px solid rgba(32, 178, 170, 0.3);
 }
 
