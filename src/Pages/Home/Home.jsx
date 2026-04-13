@@ -1,4 +1,5 @@
 import styles from "./Home.module.css";
+import Navbar from "../../Components/Navbar/Navbar";
 import Titulo from "../../Components/Titulo/Titulo";
 import Formulario from "../../Components/Formulario/Formulario";
 import CardPelicula from "../../Components/CardPelicula/CardPelicula";
@@ -76,18 +77,56 @@ export function Home() {
     return stats;
   };
 
-  const pelisPorVer = peliculas.filter((p) => !p.esVista);
-  const pelisVistas = peliculas.filter((p) => p.esVista);
+  // LÓGICA DE FILTRADO Y ORDENAMIENTO
+  const peliculasProcesadas = peliculas
+    .filter((peli) => {
+      const limpiarTexto = (texto) => {
+        if (!texto) return "";
+        return String(texto)
+          .toLowerCase()
+          .trim()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+      };
+
+      const busquedaLimpia = limpiarTexto(textoBusqueda);
+      const tituloLimpio = limpiarTexto(peli.titulo);
+      const directorLimpio = limpiarTexto(peli.director);
+
+      const coincideBusqueda =
+        tituloLimpio.includes(busquedaLimpia) ||
+        directorLimpio.includes(busquedaLimpia);
+
+      const coincideGenero =
+        filtroGenero === "" || peli.genero === filtroGenero;
+
+      const coincideTipo = filtroTipo === "" || peli.tipo === filtroTipo;
+
+      return coincideBusqueda && coincideGenero && coincideTipo;
+    })
+    .sort((a, b) => {
+      const valorA = a[parametroOrden];
+      const valorB = b[parametroOrden];
+
+      if (valorA < valorB) return direccionOrden === "asc" ? -1 : 1;
+      if (valorA > valorB) return direccionOrden === "asc" ? 1 : -1;
+      return 0;
+    });
+
+  // SEPARACIÓN Y ESTADÍSTICAS
+  const pelisPorVer = peliculasProcesadas.filter((p) => !p.esVista);
+  const pelisVistas = peliculasProcesadas.filter((p) => p.esVista);
 
   const statsPorVer = obtenerStats(pelisPorVer);
   const statsVistas = obtenerStats(pelisVistas);
 
   return (
     <div className={styles.container}>
+      <Navbar />
       <Titulo texto="GESTOR DE PELÍCULAS Y SERIES" />
 
       {/* ZONA DE FILTROS */}
-      <section className={styles.zonaFiltros}>
+      <section id="buscadores" className={styles.zonaFiltros}>
         <Buscador
           busqueda={textoBusqueda}
           onCambiarBusqueda={setTextoBusqueda}
@@ -111,7 +150,7 @@ export function Home() {
       </section>
 
       {/* DASHBOARD DE LISTAS */}
-      <div className={styles.dashboardListas}>
+      <div id="listados" lassName={styles.dashboardListas}>
         {/* COLUMNA 1: POR VER */}
         <section className={styles.columna}>
           <div className={styles.headerListaPorVer}>
@@ -185,17 +224,13 @@ export function Home() {
 
       {/* FORMULARIO Y BOTONES */}
 
-      <div className={styles.contenedorFormularioCentro}>
+      <div id="formulario" className={styles.contenedorFormularioCentro}>
         <Formulario
           setPeliculas={setPeliculas}
           peliculas={peliculas}
           generoPelis={generoPelis}
         />
       </div>
-
-      <button onClick={agregarPelicula} className={styles.botonPrueba}>
-        + Agregar Prueba
-      </button>
 
       {/* MODAL DE EDICIÓN (Se activa solo cuando peliAEditar no es null) */}
       {peliAEditar && (
