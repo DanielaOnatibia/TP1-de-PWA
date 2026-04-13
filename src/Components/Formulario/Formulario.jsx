@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import SelectorGeneral from "../SelectorGeneral/SelectorGeneral";
 import styles from "./Formulario.module.css";
+import Modal from "../Modal/Modal";
 
 const archivoABase64 = (archivo) => {
   return new Promise((resolve) => {
@@ -11,7 +12,13 @@ const archivoABase64 = (archivo) => {
   });
 };
 
-const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerrarEdicion }) => {
+const Formulario = ({
+  setPeliculas,
+  peliculas,
+  generoPelis,
+  peliAEditar,
+  onCerrarEdicion,
+}) => {
   const [titulo, setTitulo] = useState("");
   const [director, setDirector] = useState("");
   const [anio, setAnio] = useState("");
@@ -21,6 +28,9 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerra
   const [esVista, setEsVista] = useState(false);
   const [enviado, setEnviado] = useState(false);
   const [imagen, setImagen] = useState(null);
+  const [verModal, setVerModal] = useState(false);
+  const [formatoInval, setFormatoInval] = useState(false);
+  const [pesoInval, setPesoInval] = useState(false);
 
   // Este efecto detecta si hay una peli para editar y llena los campos
   React.useEffect(() => {
@@ -31,7 +41,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerra
       setGenero(peliAEditar.genero);
       setRating(peliAEditar.rating);
       setTipo(peliAEditar.tipo);
-      // Nota: la imagen no se precarga por seguridad del navegador, 
+      // Nota: la imagen no se precarga por seguridad del navegador,
       // pero mantenemos la que ya tiene si no se sube una nueva.
     }
   }, [peliAEditar]);
@@ -43,16 +53,23 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerra
       return;
     }
 
-    const formatosValidos = ["image/jpg", "image/png", "image/webp"];
+    const formatosValidos = [
+      "image/jpg",
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+    ];
     if (!formatosValidos.includes(archivo.type)) {
-      alert("Formato no permitido. Usa JPG, PNG o WEBP.");
+      setFormatoInval(true);
+      setVerModal(true);
       e.target.value = "";
       return;
     }
 
     const limitePeso = 2 * 1024 * 1024;
     if (archivo.size > limitePeso) {
-      alert("La imagen es muy pesada. El maximo es 2MB");
+      setPesoInval(true);
+      setVerModal(true);
       e.target.value = "";
       return;
     }
@@ -61,73 +78,87 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerra
   };
 
   const handleEnviar = async (e) => {
-  e.preventDefault();
-  setEnviado(true);
+    e.preventDefault();
+    setEnviado(true);
 
-  if (
-    titulo === "" ||
-    director === "" ||
-    anio === "" ||
-    genero === "" ||
-    rating === "" ||
-    tipo === ""
-  ) {
-    return false; 
-  }
+    if (
+      titulo === "" ||
+      director === "" ||
+      anio === "" ||
+      genero === "" ||
+      rating === "" ||
+      tipo === "" ||
+      imagen === null
+    ) {
+      setVerModal(true);
+      return;
+    }
 
-  let imagenFinal = peliAEditar ? peliAEditar.portada : "";
-  if (imagen) {
-    imagenFinal = await archivoABase64(imagen);
-  }
+    let imagenFinal = peliAEditar ? peliAEditar.portada : "";
+    if (imagen) {
+      imagenFinal = await archivoABase64(imagen);
+    }
 
-  if (peliAEditar) {
-    // MODO EDICIÓN
-    const peliActualizada = { 
-      ...peliAEditar, 
-      titulo, 
-      director, 
-      portada: imagenFinal, 
-      anio, 
-      genero, 
-      rating, 
-      tipo 
-    };
+    if (peliAEditar) {
+      // MODO EDICIÓN
+      const peliActualizada = {
+        ...peliAEditar,
+        titulo,
+        director,
+        portada: imagenFinal,
+        anio,
+        genero,
+        rating,
+        tipo,
+      };
 
-    setPeliculas(peliculas.map(p => p.id === peliAEditar.id ? peliActualizada : p));
-    onCerrarEdicion();
+      setPeliculas(
+        peliculas.map((p) => (p.id === peliAEditar.id ? peliActualizada : p)),
+      );
+      onCerrarEdicion();
+    } else {
+      // MODO AGREGAR
+      const nuevaPeli = {
+        id: Date.now(),
+        titulo,
+        director,
+        portada: imagenFinal,
+        anio,
+        genero,
+        rating,
+        tipo,
+        esVista: false,
+      };
 
+      setPeliculas([...peliculas, nuevaPeli]);
+    }
+
+    setTitulo("");
+    setDirector("");
+    setAnio("");
+    setGenero("");
+    setRating("");
+    setTipo("");
+    setImagen(null);
+    setEnviado(false);
+  };
+
+  //Mensaje para el modal
+  let mensajeModal;
+  if (formatoInval) {
+    mensajeModal = "⚠️​ Formato no permitido. Usa JPG, PNG o WEBP. ⚠️​";
+  } else if (pesoInval) {
+    mensajeModal = "⚠️​ La imagen es muy pesada. El maximo es 2MB. ⚠️​";
   } else {
-    // MODO AGREGAR
-    const nuevaPeli = {
-      id: Date.now(),
-      titulo,
-      director,
-      portada: imagenFinal,
-      anio,
-      genero,
-      rating,
-      tipo,
-      esVista: false,
-    };
-
-    setPeliculas([...peliculas, nuevaPeli]);
+    mensajeModal = "⚠️​ Por favor, complete los campos. ⚠️​";
   }
-
-  setTitulo("");
-  setDirector("");
-  setAnio("");
-  setGenero("");
-  setRating("");
-  setTipo("");
-  setImagen(null);
-  setEnviado(false);
-};
 
   const tipoPeli = ["pelicula", "serie", "documental"];
-
   return (
     <form onSubmit={handleEnviar} className={styles.formContainer}>
-      <h3>{peliAEditar ? "EDITAR PELÍCULA/SERIE" : "AGREGAR PELÍCULA/SERIE"}</h3>
+      <h3>
+        {peliAEditar ? "EDITAR PELÍCULA/SERIE" : "AGREGAR PELÍCULA/SERIE"}
+      </h3>
       <input
         type="text"
         placeholder="Titulo"
@@ -158,11 +189,14 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerra
       />
       <input
         type="number"
-        placeholder="Rating"
+        min={0}
+        max={5}
+        placeholder="Rating del 0 al 5"
         value={rating}
         onChange={(e) => setRating(Number(e.target.value))}
         className={`${styles.inputField} ${enviado && rating === "" ? styles.inputError : ""}`}
       />
+
       <SelectorGeneral
         label="Tipo"
         options={tipoPeli}
@@ -172,7 +206,10 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerra
       />
 
       <div className={styles.archivoContainer}>
-        <label htmlFor="subir-portada" className={styles.archivoButton}>
+        <label
+          htmlFor="subir-portada"
+          className={`${styles.archivoButton} ${enviado && imagen === null ? styles.archivoButtonError : null}`}
+        >
           {imagen ? "✅ Imagen seleccionada" : "📸 Elegir portada de peli"}
         </label>
 
@@ -181,7 +218,7 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerra
           type="file"
           accept="image/*"
           onChange={handleImagen}
-          className={`${styles.hiddenArchivo}`}
+          className={styles.hiddenArchivo}
         />
 
         {imagen && <p className={styles.nombreArchivo}>{imagen.name}</p>}
@@ -190,6 +227,16 @@ const Formulario = ({ setPeliculas, peliculas, generoPelis, peliAEditar, onCerra
       <button type="submit" className={styles.buttonSubmit}>
         {peliAEditar ? "Guardar Cambios" : "Guardar Película"}
       </button>
+      <Modal
+        booleano={verModal}
+        onClose={() => {
+          (setVerModal(false), setFormatoInval(false), setPesoInval(false));
+        }}
+        className={styles.modalError}
+      >
+        <div className={styles.modalContenedor}>ERROR ⛔​</div>
+        <p>{mensajeModal}</p>
+      </Modal>
     </form>
   );
 };
