@@ -75,7 +75,6 @@
 
 .memberNameLink:hover {
   color: var(--color-primario, #20b2aa);
-  text-decoration: underline;
 }
 
 .memberDivider {

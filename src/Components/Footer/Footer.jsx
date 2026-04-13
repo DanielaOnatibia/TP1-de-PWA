@@ -33,7 +33,9 @@ const Footer = () => {
   return (
     <footer className={styles.footerContainer}>
       <div className={styles.footerHeader}>
-        Facultad de Informática - Programación Web Avanzada - TP 1 REACT 2026
+        <h3>
+          Facultad de Informática - Programación Web Avanzada - TP 1 REACT 2026
+        </h3>
       </div>
 
       <div className={styles.membersCard}>
