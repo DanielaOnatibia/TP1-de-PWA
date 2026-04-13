@@ -37,7 +37,7 @@ const Navbar = () => {
       >
         <li>
           <a href="#buscadores" onClick={cerrarMenu}>
-            Buscadores
+            Buscador de Peliculas
           </a>
         </li>
         <li>
@@ -48,6 +48,11 @@ const Navbar = () => {
         <li>
           <a href="#formulario" onClick={cerrarMenu}>
             Agregar Nuevo
+          </a>
+        </li>
+        <li>
+          <a href="#integrantes" onClick={cerrarMenu}>
+            Integrantes
           </a>
         </li>
       </ul>
