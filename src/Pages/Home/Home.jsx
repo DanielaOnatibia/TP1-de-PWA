@@ -9,7 +9,6 @@ import Footer from "../../Components/Footer/Footer";
 import Modal from "../../Components/Modal/Modal";
 import { useState, useEffect } from "react";
 
-
 export function Home() {
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [filtroGenero, setFiltroGenero] = useState("");
@@ -42,7 +41,9 @@ export function Home() {
   };
 
   const guardarEdicion = (peliEditada) => {
-    setPeliculas(peliculas.map(p => p.id === peliEditada.id ? peliEditada : p));
+    setPeliculas(
+      peliculas.map((p) => (p.id === peliEditada.id ? peliEditada : p)),
+    );
     setPeliAEditar(null); // Cerramos el modo edición
   };
 
@@ -185,11 +186,11 @@ export function Home() {
       {/* FORMULARIO Y BOTONES */}
 
       <div className={styles.contenedorFormularioCentro}>
-      <Formulario
-        setPeliculas={setPeliculas}
-        peliculas={peliculas}
-        generoPelis={generoPelis}
-      />
+        <Formulario
+          setPeliculas={setPeliculas}
+          peliculas={peliculas}
+          generoPelis={generoPelis}
+        />
       </div>
 
       <button onClick={agregarPelicula} className={styles.botonPrueba}>
@@ -198,18 +199,19 @@ export function Home() {
 
       {/* MODAL DE EDICIÓN (Se activa solo cuando peliAEditar no es null) */}
       {peliAEditar && (
-        <Modal booleano={peliAEditar !== null} onClose={() => setPeliAEditar(null)}>
+        <Modal
+          booleano={peliAEditar !== null}
+          onClose={() => setPeliAEditar(null)}
+        >
           <Formulario
             peliculas={peliculas}
             setPeliculas={setPeliculas}
             generoPelis={generoPelis}
-            peliAEditar={peliAEditar} 
+            peliAEditar={peliAEditar}
             onCerrarEdicion={() => setPeliAEditar(null)}
           />
         </Modal>
       )}
-
-      <Footer />
 
       <Footer />
     </div>
