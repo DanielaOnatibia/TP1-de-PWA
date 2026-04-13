@@ -1,0 +1,53 @@
+.overlay {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.contenedor {
+  background-color:#67acde;
+  padding: 32px;
+  border-radius: 12px;
+  width: 90%;
+  max-height: 85vh;
+  max-width: 500px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  position: relative;
+  border: none;
+  padding: 0 !important; /* <--- QUITAMOS el espacio interno */
+  overflow: hidden;      /* Para que las esquinas del formulario no se salgan */
+  display: flex;         /* Ayuda a que el contenido se estire */
+}
+
+.contenedor img {
+  display: block;
+  margin: 0 auto 0 auto;
+  max-height: 250px;
+  width: auto;
+  border-radius: 12px;
+}
+
+.botonCerrar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  cursor: pointer;
+}
+
+.bloqueTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
