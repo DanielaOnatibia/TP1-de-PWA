@@ -54,7 +54,7 @@
 .columna {
   flex: 1;
   min-width: 300px;
-  background: rgb(19, 24, 35);
+  background: #1e293b;
   border: 2px solid #c4bafa;
   border-radius: 20px;
   padding: 30px;
@@ -149,7 +149,7 @@
 .contenedorFormularioCentro {
   display: flex;
   justify-content: center; /* Esto lo centra horizontalmente */
-  align-items: center;     /* Esto lo centra verticalmente */
-  width: 100%;            /* Para que use todo el ancho de la pantalla */
-  margin: 50px 0;         /* Para que no esté pegado a las columnas de arriba */
+  align-items: center; /* Esto lo centra verticalmente */
+  width: 100%; /* Para que use todo el ancho de la pantalla */
+  margin: 50px 0; /* Para que no esté pegado a las columnas de arriba */
 }
