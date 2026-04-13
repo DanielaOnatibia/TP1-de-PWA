@@ -9,16 +9,26 @@
   min-height: 100vh;
 }
 
-/* ESPACIO PARA FILTROS  */
 .zonaFiltros {
-  background: rgba(76, 139, 197, 0.521);
-  border: 2px solid #a5b0bd;
-  border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 30px;
-  text-align: center;
-  color: #2c536f;
-  font-style: italic;
+  padding: 2rem;
+  border-top: 1px solid var(--borde-color); 
+  background-color: var(--bg-principal);
+  box-shadow: var(--sombra-caja);
+  border-radius: var(--borde-radio);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+.flexFiltros {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: space-between; 
+  align-items: flex-end;
+  gap: 2rem;
 }
 
 /* --- BOTONES Y UTILIDADES --- */
@@ -149,7 +159,7 @@
 .contenedorFormularioCentro {
   display: flex;
   justify-content: center; /* Esto lo centra horizontalmente */
-  align-items: center;     /* Esto lo centra verticalmente */
-  width: 100%;            /* Para que use todo el ancho de la pantalla */
-  margin: 50px 0;         /* Para que no esté pegado a las columnas de arriba */
+  align-items: center; /* Esto lo centra verticalmente */
+  width: 100%; /* Para que use todo el ancho de la pantalla */
+  margin: 50px 0; /* Para que no esté pegado a las columnas de arriba */
 }

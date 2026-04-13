@@ -9,7 +9,6 @@ import Footer from "../../Components/Footer/Footer";
 import Modal from "../../Components/Modal/Modal";
 import { useState, useEffect } from "react";
 
-
 export function Home() {
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [filtroGenero, setFiltroGenero] = useState("");
@@ -42,7 +41,9 @@ export function Home() {
   };
 
   const guardarEdicion = (peliEditada) => {
-    setPeliculas(peliculas.map(p => p.id === peliEditada.id ? peliEditada : p));
+    setPeliculas(
+      peliculas.map((p) => (p.id === peliEditada.id ? peliEditada : p)),
+    );
     setPeliAEditar(null); // Cerramos el modo edición
   };
 
@@ -75,8 +76,45 @@ export function Home() {
     return stats;
   };
 
-  const pelisPorVer = peliculas.filter((p) => !p.esVista);
-  const pelisVistas = peliculas.filter((p) => p.esVista);
+  //LÓGICA DE FILTRADO Y ORDENAMIENTO
+  const peliculasProcesadas = peliculas
+    .filter((peli) => {
+      const limpiarTexto = (texto) => {
+        if (!texto) return "";
+        return String(texto)
+          .toLowerCase()
+          .trim()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+      };
+
+      const busquedaLimpia = limpiarTexto(textoBusqueda);
+      const tituloLimpio = limpiarTexto(peli.titulo);
+      const directorLimpio = limpiarTexto(peli.director);
+
+      const coincideBusqueda =
+        tituloLimpio.includes(busquedaLimpia) ||
+        directorLimpio.includes(busquedaLimpia);
+
+      const coincideGenero =
+        filtroGenero === "" || peli.genero === filtroGenero;
+
+      const coincideTipo = filtroTipo === "" || peli.tipo === filtroTipo;
+
+      return coincideBusqueda && coincideGenero && coincideTipo;
+    })
+    .sort((a, b) => {
+      const valorA = a[parametroOrden];
+      const valorB = b[parametroOrden];
+
+      if (valorA < valorB) return direccionOrden === "asc" ? -1 : 1;
+      if (valorA > valorB) return direccionOrden === "asc" ? 1 : -1;
+      return 0;
+    });
+
+  // SEPARACIÓN Y ESTADÍSTICAS
+  const pelisPorVer = peliculasProcesadas.filter((p) => !p.esVista);
+  const pelisVistas = peliculasProcesadas.filter((p) => p.esVista);
 
   const statsPorVer = obtenerStats(pelisPorVer);
   const statsVistas = obtenerStats(pelisVistas);
@@ -185,11 +223,11 @@ export function Home() {
       {/* FORMULARIO Y BOTONES */}
 
       <div className={styles.contenedorFormularioCentro}>
-      <Formulario
-        setPeliculas={setPeliculas}
-        peliculas={peliculas}
-        generoPelis={generoPelis}
-      />
+        <Formulario
+          setPeliculas={setPeliculas}
+          peliculas={peliculas}
+          generoPelis={generoPelis}
+        />
       </div>
 
       <button onClick={agregarPelicula} className={styles.botonPrueba}>
@@ -198,18 +236,19 @@ export function Home() {
 
       {/* MODAL DE EDICIÓN (Se activa solo cuando peliAEditar no es null) */}
       {peliAEditar && (
-        <Modal booleano={peliAEditar !== null} onClose={() => setPeliAEditar(null)}>
+        <Modal
+          booleano={peliAEditar !== null}
+          onClose={() => setPeliAEditar(null)}
+        >
           <Formulario
             peliculas={peliculas}
             setPeliculas={setPeliculas}
             generoPelis={generoPelis}
-            peliAEditar={peliAEditar} 
+            peliAEditar={peliAEditar}
             onCerrarEdicion={() => setPeliAEditar(null)}
           />
         </Modal>
       )}
-
-      <Footer />
 
       <Footer />
     </div>
