@@ -11,7 +11,7 @@
 
 .zonaFiltros {
   padding: 2rem;
-  border-top: 1px solid var(--borde-color); 
+  border-top: 1px solid var(--borde-color);
   background-color: var(--bg-principal);
   box-shadow: var(--sombra-caja);
   border-radius: var(--borde-radio);
@@ -25,8 +25,8 @@
 
 .flexFiltros {
   display: flex;
-  flex-wrap: wrap; 
-  justify-content: space-between; 
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: flex-end;
   gap: 2rem;
 }
@@ -64,10 +64,14 @@
 .columna {
   flex: 1;
   min-width: 300px;
-  background: #1e293b;
-  border: 2px solid #c4bafa;
+  background-color: var(--bg-principal);
+  box-shadow:
+    0 10px 30px -5px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(196, 186, 250, 0.2);
   border-radius: 20px;
   padding: 30px;
+  margin-bottom: 20px;
+  align-items: center;
 }
 
 .headerListaPorVer h2,
@@ -81,7 +85,9 @@
   text-transform: uppercase;
   font-size: 1.1rem;
   margin-bottom: 15px;
-  border: 2px solid #333;
+  box-shadow:
+    0 10px 30px -5px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(196, 186, 250, 0.2);
 }
 
 /* SECCIÓN DE ESTADÍSTICAS */
@@ -143,10 +149,11 @@
 @media (max-width: 900px) {
   .dashboardListas {
     flex-direction: column;
+    align-items: center;
   }
 
   .columna {
-    width: 100%;
+    width: 95%;
     min-height: auto;
   }
 
@@ -159,6 +166,9 @@
 .contenedorFormularioCentro {
   display: flex;
   justify-content: center; /* Esto lo centra horizontalmente */
+  align-items: center; /* Esto lo centra verticalmente */
+  width: 100%; /* Para que use todo el ancho de la pantalla */
+  margin: 50px 0; /* Para que no esté pegado a las columnas de arriba */
   align-items: center; /* Esto lo centra verticalmente */
   width: 100%; /* Para que use todo el ancho de la pantalla */
   margin: 50px 0; /* Para que no esté pegado a las columnas de arriba */

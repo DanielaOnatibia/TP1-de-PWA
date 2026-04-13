@@ -146,7 +146,7 @@ const Formulario = ({
   //Mensaje para el modal
   let mensajeModal;
   if (formatoInval) {
-    mensajeModal = "⚠️​ Formato no permitido. Usa JPG, PNG o WEBP. ⚠️​";
+    mensajeModal = "⚠️​ Formato no permitido. Usa JPG, JPEG, PNG o WEBP. ⚠️​";
   } else if (pesoInval) {
     mensajeModal = "⚠️​ La imagen es muy pesada. El maximo es 2MB. ⚠️​";
   } else {
