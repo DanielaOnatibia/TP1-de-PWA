@@ -11,34 +11,37 @@ const Footer = () => {
 
       <div className={styles.equipo}>
         <ul className={styles.listaMiembros}>
-          <li>
+          <li className={styles.miembro}>
             <a
               href="https://github.com/DanielaOnatibia"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.link}
             >
-              <strong>Daniela Oñitabia - FAI-4775</strong> - Scrum Master / PM
+              <strong>Daniela Oñitabia - FAI-4775</strong>
+              <span>Scrum Master / PM</span>
             </a>
           </li>
-          <li>
+          <li className={styles.miembro}>
             <a
               href="https://github.com/abrilgavilan11"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.link}
             >
-              <strong>Abril Gavilan - FAI-5163</strong> - Desarrolladora
+              <strong>Abril Gavilan - FAI-5163</strong>
+              <span>Desarrolladora</span>
             </a>
           </li>
-          <li>
+          <li className={styles.miembro}>
             <a
               href="https://github.com/DevEriik"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.link}
             >
-              <strong>Erick Gonzalez - FAI-3433</strong> - Desarrollador
+              <strong>Erick Gonzalez - FAI-3433</strong>
+              <span>Desarrollador</span>
             </a>
           </li>
         </ul>
