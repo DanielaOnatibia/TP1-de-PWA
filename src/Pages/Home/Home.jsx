@@ -1,4 +1,5 @@
 import styles from "./Home.module.css";
+import Navbar from "../../Components/Navbar/Navbar";
 import Titulo from "../../Components/Titulo/Titulo";
 import Formulario from "../../Components/Formulario/Formulario";
 import CardPelicula from "../../Components/CardPelicula/CardPelicula";
@@ -76,7 +77,7 @@ export function Home() {
     return stats;
   };
 
-  //LÓGICA DE FILTRADO Y ORDENAMIENTO
+  // LÓGICA DE FILTRADO Y ORDENAMIENTO
   const peliculasProcesadas = peliculas
     .filter((peli) => {
       const limpiarTexto = (texto) => {
@@ -121,10 +122,11 @@ export function Home() {
 
   return (
     <div className={styles.container}>
+      <Navbar />
       <Titulo texto="GESTOR DE PELÍCULAS Y SERIES" />
 
       {/* ZONA DE FILTROS */}
-      <section className={styles.zonaFiltros}>
+      <section id="buscadores" className={styles.zonaFiltros}>
         <Buscador
           busqueda={textoBusqueda}
           onCambiarBusqueda={setTextoBusqueda}
@@ -148,7 +150,7 @@ export function Home() {
       </section>
 
       {/* DASHBOARD DE LISTAS */}
-      <div className={styles.dashboardListas}>
+      <div id="listados" lassName={styles.dashboardListas}>
         {/* COLUMNA 1: POR VER */}
         <section className={styles.columna}>
           <div className={styles.headerListaPorVer}>
@@ -222,17 +224,13 @@ export function Home() {
 
       {/* FORMULARIO Y BOTONES */}
 
-      <div className={styles.contenedorFormularioCentro}>
+      <div id="formulario" className={styles.contenedorFormularioCentro}>
         <Formulario
           setPeliculas={setPeliculas}
           peliculas={peliculas}
           generoPelis={generoPelis}
         />
       </div>
-
-      <button onClick={agregarPelicula} className={styles.botonPrueba}>
-        + Agregar Prueba
-      </button>
 
       {/* MODAL DE EDICIÓN (Se activa solo cuando peliAEditar no es null) */}
       {peliAEditar && (
