@@ -159,6 +159,7 @@ const Formulario = ({
       <h3>
         {peliAEditar ? "EDITAR PELÍCULA/SERIE" : "AGREGAR PELÍCULA/SERIE"}
       </h3>
+      <label>Titulo de la Pelicula/Serie:</label>
       <input
         type="text"
         placeholder="Titulo"
@@ -166,6 +167,7 @@ const Formulario = ({
         onChange={(e) => setTitulo(e.target.value)}
         className={`${styles.inputField} ${enviado && titulo === "" ? styles.inputError : ""}`}
       />
+      <label>Director:</label>
       <input
         type="text"
         placeholder="Director"
@@ -173,6 +175,7 @@ const Formulario = ({
         onChange={(e) => setDirector(e.target.value)}
         className={`${styles.inputField} ${enviado && director === "" ? styles.inputError : ""}`}
       />
+      <label>Año de lanzamiento:</label>
       <input
         type="number"
         placeholder="Año"
@@ -187,6 +190,7 @@ const Formulario = ({
         onChange={setGenero}
         className={` ${styles.selectores}${enviado && genero === "" ? styles.inputError : ""}`}
       />
+      <label>Rating (ingrese un número del 0 al 5):</label>
       <input
         type="number"
         min={0}
@@ -206,6 +210,7 @@ const Formulario = ({
       />
 
       <div className={styles.archivoContainer}>
+        <label>Subir imagen de la Portada (opcional):</label>
         <label
           htmlFor="subir-portada"
           className={`${styles.archivoButton} ${enviado && imagen === null ? styles.archivoButtonError : null}`}
