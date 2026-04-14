@@ -103,3 +103,38 @@
   position: relative;
   width: 100%;
 }
+
+.modalEliminar {
+  background-color: #ffe0e0;
+}
+
+.atencionEliminar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+}
+
+.botonesModelELiminar {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 10px;
+}
+
+.botonAceptar {
+  background-color: var(--color-primario);
+  height: 40px;
+  width: 80px;
+}
+
+.botonAceptar:hover {
+  background-color: var(--color-primario-hover);
+}
+
+.botonCancelar {
+  background-color: var(--color-peligro);
+  height: 40px;
+  width: 80px;
+}
+
+.botonCancelar:hover {
+  background-color: var(--color-peligro-hover);
+}
