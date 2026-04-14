@@ -247,8 +247,9 @@ export function Home() {
           />
         </Modal>
       )}
-
-      <Footer />
+      <div id="integrantes" className={styles.contenedorFooter}>
+        <Footer />
+      </div>
     </div>
   );
 }
