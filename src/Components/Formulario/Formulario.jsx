@@ -215,7 +215,7 @@ const Formulario = ({
           htmlFor="subir-portada"
           className={`${styles.archivoButton} ${enviado && imagen === null ? styles.archivoButtonError : null}`}
         >
-          {imagen ? "✅ Imagen seleccionada" : "📸 Elegir portada de peli"}
+          {imagen ? "✅ Imagen seleccionada" : "📸 Elegir imagen de Película"}
         </label>
 
         <input
