@@ -9,9 +9,6 @@ const CardPelicula = ({ item, onCambiarEstado, onEditar, onEliminar }) => {
 
   const handleEliminar = () => {
     setVerModalEliminar(true);
-    if (confirmar) {
-      onEliminar(item.id);
-    }
   };
 
   return (
