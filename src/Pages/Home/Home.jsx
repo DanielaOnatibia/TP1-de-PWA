@@ -2,6 +2,7 @@ import styles from "./Home.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Titulo from "../../Components/Titulo/Titulo";
 import Formulario from "../../Components/Formulario/Formulario";
+import Carrusel from "../../Components/Carrusel/Carrusel";
 import CardPelicula from "../../Components/CardPelicula/CardPelicula";
 import Buscador from "../../Components/Buscador/Buscador";
 import Filtrado from "../../Components/Filtrado/Filtrado";
@@ -197,7 +198,7 @@ export function Home() {
             )}
           </div>
 
-          <div className={styles.listadoCards}>
+          <Carrusel>
             {pelisPorVer.length === 0 ? (
               <p className={styles.mensajeVacio}>No hay pendientes 🍿</p>
             ) : (
@@ -211,7 +212,7 @@ export function Home() {
                 />
               ))
             )}
-          </div>
+          </Carrusel>
         </section>
 
         {/* COLUMNA 2: VISTO */}
@@ -260,7 +261,7 @@ export function Home() {
             )}
           </div>
 
-          <div className={styles.listadoCards}>
+          <Carrusel>
             {pelisVistas.length === 0 ? (
               <p className={styles.mensajeVacio}>Todavía no viste nada 🎬</p>
             ) : (
@@ -274,7 +275,7 @@ export function Home() {
                 />
               ))
             )}
-          </div>
+          </Carrusel>
         </section>
       </div>
 
