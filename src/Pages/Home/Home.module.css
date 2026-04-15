@@ -92,17 +92,34 @@
 
 /* SECCIÓN DE ESTADÍSTICAS */
 .stats {
-  background: #90adc9ea;
-  margin-bottom: 20px;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: #0f0c45;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
 }
 
-.stats strong {
-  color: #01121e;
+.totalItem {
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: #c4bafa;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  padding-right: 15px;
+}
+
+.statItem span {
+  font-weight: bold;
+  color: #1866cc;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 /* CONTENEDOR DE TARJETAS */
@@ -120,7 +137,7 @@
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  color: #ffffff;
+  color: #000000d7;
   text-align: center;
   font-style: italic;
   background: rgba(255, 255, 255, 0.05);
