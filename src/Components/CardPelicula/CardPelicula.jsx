@@ -1,18 +1,14 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import Button from "../Button/Button";
 import styles from "./CardPelicula.module.css";
 import Modal from "../Modal/Modal";
 
 const CardPelicula = ({ item, onCambiarEstado, onEditar, onEliminar }) => {
   const [verModal, setVerModal] = useState(false);
+  const [verModalEliminar, setVerModalEliminar] = useState(false);
 
   const handleEliminar = () => {
-    const confirmar = window.confirm(
-      `¿Estás seguro de que querés eliminar "${item.titulo}"?`,
-    );
-    if (confirmar) {
-      onEliminar(item.id);
-    }
+    setVerModalEliminar(true);
   };
 
   return (
@@ -71,11 +67,33 @@ const CardPelicula = ({ item, onCambiarEstado, onEditar, onEliminar }) => {
             color="var(--color-peligro)"
             onClick={(e) => {
               e.stopPropagation();
-              handleEliminar(); /*se habian eliminado los parentesis de la funcion pq no eliminaba correctamente*/
+              handleEliminar();
             }}
           />
         </div>
       </div>
+      <Modal
+        booleano={verModalEliminar}
+        onClose={() => setVerModalEliminar(false)}
+        className={styles.modalEliminar}
+      >
+        <div className={styles.atencionEliminar}>ATENCION​‼️​​​</div>
+        <p>¿Estás seguro de que querés eliminar "{item.titulo}"?</p>
+        <div className={styles.botonesModelELiminar}>
+          <button
+            className={styles.botonAceptar}
+            onClick={() => onEliminar(item.id)}
+          >
+            Aceptar
+          </button>
+          <button
+            className={styles.botonCancelar}
+            onClick={() => setVerModalEliminar(false)}
+          >
+            Cancelar
+          </button>
+        </div>
+      </Modal>
       <Modal booleano={verModal} onClose={() => setVerModal(false)}>
         <img src={item.portada} alt="Imagen" />
         <div className={styles.bloqueTexto}>

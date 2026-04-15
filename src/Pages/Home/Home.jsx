@@ -2,6 +2,7 @@ import styles from "./Home.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import Titulo from "../../Components/Titulo/Titulo";
 import Formulario from "../../Components/Formulario/Formulario";
+import Carrusel from "../../Components/Carrusel/Carrusel";
 import CardPelicula from "../../Components/CardPelicula/CardPelicula";
 import Buscador from "../../Components/Buscador/Buscador";
 import Filtrado from "../../Components/Filtrado/Filtrado";
@@ -157,19 +158,47 @@ export function Home() {
             <h2>CONTENIDO POR VER</h2>
           </div>
           <div className={styles.stats}>
-            <p>
-              <strong>Total:</strong> {statsPorVer.Total} items
-            </p>
-            <p>
-              Acción: {statsPorVer.Acción || 0}, Comedia:{" "}
-              {statsPorVer.Comedia || 0}, Drama: {statsPorVer.Drama || 0},
-              Terror: {statsPorVer.Terror || 0}, Ciencia Ficción:{" "}
-              {statsPorVer["Ciencia Ficción"] || 0}, Documental:{" "}
-              {statsPorVer.Documental || 0}
-            </p>
+            <div className={styles.totalItem}>
+              TOTAL: <span>{statsPorVer.Total}</span>
+            </div>
+            {statsPorVer.Acción > 0 && (
+              <div className={styles.statItem} title="Acción">
+                💥<span>{statsPorVer.Acción}</span>
+              </div>
+            )}
+
+            {statsPorVer.Comedia > 0 && (
+              <div className={styles.statItem} title="Comedia">
+                😂 <span>{statsPorVer.Comedia}</span>
+              </div>
+            )}
+
+            {statsPorVer.Drama > 0 && (
+              <div className={styles.statItem} title="Drama">
+                🎭 <span>{statsPorVer.Drama}</span>
+              </div>
+            )}
+
+            {statsPorVer.Terror > 0 && (
+              <div className={styles.statItem} title="Terror">
+                👻 <span>{statsPorVer.Terror}</span>
+              </div>
+            )}
+
+            {statsPorVer["Ciencia Ficción"] > 0 && (
+              <div className={styles.statItem} title="Ciencia Ficción">
+                🚀 <span>{statsPorVer["Ciencia Ficción"]}</span>
+              </div>
+            )}
+
+            {statsPorVer.Documental > 0 && (
+              <div className={styles.statItem} title="Documental">
+                🎥 <span>{statsPorVer.Documental}</span>
+              </div>
+            )}
           </div>
 
-          <div className={styles.listadoCards}>
+          <Carrusel>
             {pelisPorVer.length === 0 ? (
               <p className={styles.mensajeVacio}>No hay pendientes 🍿</p>
             ) : (
@@ -183,7 +212,7 @@ export function Home() {
                 />
               ))
             )}
-          </div>
+          </Carrusel>
         </section>
 
         {/* COLUMNA 2: VISTO */}
@@ -192,19 +221,47 @@ export function Home() {
             <h2>CONTENIDO VISTO</h2>
           </div>
           <div className={styles.stats}>
-            <p>
-              <strong>Total:</strong> {statsVistas.Total} items
-            </p>
-            <p>
-              Acción: {statsVistas.Acción || 0}, Comedia:{" "}
-              {statsVistas.Comedia || 0}, Drama: {statsVistas.Drama || 0},
-              Terror: {statsVistas.Terror || 0}, Ciencia Ficción:{" "}
-              {statsVistas["Ciencia Ficción"] || 0}, Documental:{" "}
-              {statsVistas.Documental || 0}
-            </p>
+            <div className={styles.totalItem}>
+              TOTAL: <span>{statsVistas.Total}</span>
+            </div>
+            {statsVistas.Acción > 0 && (
+              <div className={styles.statItem} title="Acción">
+                💥<span>{statsVistas.Acción}</span>
+              </div>
+            )}
+
+            {statsVistas.Comedia > 0 && (
+              <div className={styles.statItem} title="Comedia">
+                😂 <span>{statsVistas.Comedia}</span>
+              </div>
+            )}
+
+            {statsVistas.Drama > 0 && (
+              <div className={styles.statItem} title="Drama">
+                🎭 <span>{statsVistas.Drama}</span>
+              </div>
+            )}
+
+            {statsVistas.Terror > 0 && (
+              <div className={styles.statItem} title="Terror">
+                👻 <span>{statsVistas.Terror}</span>
+              </div>
+            )}
+
+            {statsVistas["Ciencia Ficción"] > 0 && (
+              <div className={styles.statItem} title="Ciencia Ficción">
+                🚀 <span>{statsVistas["Ciencia Ficción"]}</span>
+              </div>
+            )}
+
+            {statsVistas.Documental > 0 && (
+              <div className={styles.statItem} title="Documental">
+                🎥 <span>{statsVistas.Documental}</span>
+              </div>
+            )}
           </div>
 
-          <div className={styles.listadoCards}>
+          <Carrusel>
             {pelisVistas.length === 0 ? (
               <p className={styles.mensajeVacio}>Todavía no viste nada 🎬</p>
             ) : (
@@ -218,7 +275,7 @@ export function Home() {
                 />
               ))
             )}
-          </div>
+          </Carrusel>
         </section>
       </div>
 
@@ -247,8 +304,9 @@ export function Home() {
           />
         </Modal>
       )}
-
-      <Footer />
+      <div id="integrantes" className={styles.contenedorFooter}>
+        <Footer />
+      </div>
     </div>
   );
 }
