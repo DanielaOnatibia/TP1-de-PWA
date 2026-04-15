@@ -9,7 +9,7 @@ const Footer = () => {
   const members = [
     {
       avatar: imgDaniela,
-      name: "Daniela Oñitabia FAI-4775",
+      name: "Daniela Oñatibia FAI-4775",
       url: "https://github.com/DanielaOnatibia",
       roleWeb: "Scrum Master / PM",
       roleMobile: '"Scrum Master / PM"',
