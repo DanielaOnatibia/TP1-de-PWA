@@ -88,7 +88,7 @@ const Formulario = ({
       genero === "" ||
       rating === "" ||
       tipo === "" ||
-      imagen === null
+      (imagen === null && !peliAEditar)
     ) {
       setVerModal(true);
       return;
