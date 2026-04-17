@@ -238,7 +238,7 @@ export function Home() {
       </section>
 
       {/* DASHBOARD DE LISTAS */}
-      <div id="listados" lassName={styles.dashboardListas}>
+      <div id="listados" className={styles.dashboardListas}>
         {/* COLUMNA 1: POR VER */}
         <section className={styles.columna}>
           <div className={styles.headerListaPorVer}>
@@ -364,13 +364,13 @@ export function Home() {
             )}
           </Carrusel>
         </section>
-        <div className={styles.contenedorBotonAgregarPelicula}>
-          <Button
-            texto="Agregar Película 🎥"
-            color="#3b759e"
-            onClick={agregarPelicula}
-          />
-        </div>
+      </div>
+      <div className={styles.contenedorBotonAgregarPelicula}>
+        <Button
+          texto="Agregar Película 🎥"
+          color="#3b759e"
+          onClick={agregarPelicula}
+        />
       </div>
 
       {/* FORMULARIO Y BOTONES */}
