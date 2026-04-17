@@ -210,7 +210,7 @@ const Formulario = ({
       />
 
       <div className={styles.archivoContainer}>
-        <label>Subir imagen de la Portada (opcional):</label>
+        <label>Subir imagen de la Portada:</label>
         <label
           htmlFor="subir-portada"
           className={`${styles.archivoButton} ${enviado && imagen === null ? styles.archivoButtonError : null}`}
