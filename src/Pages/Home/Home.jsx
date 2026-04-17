@@ -10,13 +10,23 @@ import Orden from "../../Components/Orden/Orden";
 import Button from "../../Components/Button/Button";
 import Footer from "../../Components/Footer/Footer";
 import Modal from "../../Components/Modal/Modal";
+import ImgSpider from "../../../public/portadaPelis/Spider_Man_No_Way_Home-642739124-large.jpg";
+import ImgBatman from "../../../public/portadaPelis/The_Batman-301109776-large.jpg";
+import ImgDune from "../../../public/portadaPelis/Dune.jpg";
+import ImgMatrix from "../../../public/portadaPelis/theMatrix.jpg";
+import ImgBatmanNoche from "../../../public/portadaPelis/BatmanCaballero.jpg";
+import ImgTitanic from "../../../public/portadaPelis/titanic.jpg";
+import ImgConjuro from "../../../public/portadaPelis/Elconjuro.jpg";
+import ImgStory from "../../../public/portadaPelis/toyStory.jpg";
+import ImgTheLast from "../../../public/portadaPelis/theLast.jpg";
+
 import { useState, useEffect } from "react";
 
 const listaPeliculas = [
   {
     titulo: "Spider-Man",
     director: "Jon Watts",
-    portada: "/public/portadaPelis/Spider_Man_No_Way_Home-642739124-large.jpg",
+    portada: ImgSpider,
     anio: 2021,
     genero: "Acción",
     rating: 5,
@@ -26,7 +36,7 @@ const listaPeliculas = [
   {
     titulo: "The Batman",
     director: "Mat Reeves",
-    portada: "/public/portadaPelis/The_Batman-301109776-large.jpg",
+    portada: ImgBatman,
     anio: 2022,
     genero: "Acción",
     rating: 4,
@@ -36,7 +46,7 @@ const listaPeliculas = [
   {
     titulo: "Dune",
     director: "Denis Villeneuve",
-    portada: "/public/portadaPelis/Dune.jpg",
+    portada: ImgDune,
     anio: 2021,
     genero: "Ciencia Ficción",
     rating: 5,
@@ -46,7 +56,7 @@ const listaPeliculas = [
   {
     titulo: "The Matrix",
     director: "Lana y Lilly Wachowski",
-    portada: "/public/portadaPelis/theMatrix.jpg",
+    portada: ImgMatrix,
     anio: 1999,
     genero: "Ciencia Ficción",
     rating: 5,
@@ -56,7 +66,7 @@ const listaPeliculas = [
   {
     titulo: "Batman: El Caballero de la Noche",
     director: "Christopher Nolan",
-    portada: "/public/portadaPelis/BatmanCaballero.jpg",
+    portada: ImgBatmanNoche,
     anio: 2008,
     genero: "Acción",
     rating: 5,
@@ -66,7 +76,7 @@ const listaPeliculas = [
   {
     titulo: "Titanic",
     director: "James Cameron",
-    portada: "/public/portadaPelis/titanic.jpg",
+    portada: ImgTitanic,
     anio: 1997,
     genero: "Drama",
     rating: 5,
@@ -76,7 +86,7 @@ const listaPeliculas = [
   {
     titulo: "El Conjuro",
     director: "James Wan",
-    portada: "/public/portadaPelis/Elconjuro.jpg",
+    portada: ImgConjuro,
     anio: 2013,
     genero: "Terror",
     rating: 4,
@@ -86,7 +96,7 @@ const listaPeliculas = [
   {
     titulo: "Toy Story",
     director: "John Lasseter",
-    portada: "/public/portadaPelis/toyStory.jpg",
+    portada: ImgStory,
     anio: 1995,
     genero: "Comedia",
     rating: 5,
@@ -96,7 +106,7 @@ const listaPeliculas = [
   {
     titulo: "The Last of Us",
     director: "Bruce Straley, Neil Druckmann",
-    portada: "/public/portadaPelis/theLast.jpg",
+    portada: ImgTheLast,
     anio: 2023,
     genero: "Terror",
     rating: 3,
