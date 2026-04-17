@@ -7,9 +7,103 @@ import CardPelicula from "../../Components/CardPelicula/CardPelicula";
 import Buscador from "../../Components/Buscador/Buscador";
 import Filtrado from "../../Components/Filtrado/Filtrado";
 import Orden from "../../Components/Orden/Orden";
+import Button from "../../Components/Button/Button";
 import Footer from "../../Components/Footer/Footer";
 import Modal from "../../Components/Modal/Modal";
 import { useState, useEffect } from "react";
+
+const listaPeliculas = [
+  {
+    titulo: "Spider-Man",
+    director: "Jon Watts",
+    portada: "/public/portadaPelis/Spider_Man_No_Way_Home-642739124-large.jpg",
+    anio: 2021,
+    genero: "Acción",
+    rating: 5,
+    tipo: "pelicula",
+    esVista: false,
+  },
+  {
+    titulo: "The Batman",
+    director: "Mat Reeves",
+    portada: "/public/portadaPelis/The_Batman-301109776-large.jpg",
+    anio: 2022,
+    genero: "Acción",
+    rating: 4,
+    tipo: "pelicula",
+    esVista: false,
+  },
+  {
+    titulo: "Dune",
+    director: "Denis Villeneuve",
+    portada: "/public/portadaPelis/Dune.jpg",
+    anio: 2021,
+    genero: "Ciencia Ficción",
+    rating: 5,
+    tipo: "pelicula",
+    esVista: false,
+  },
+  {
+    titulo: "The Matrix",
+    director: "Lana y Lilly Wachowski",
+    portada: "/public/portadaPelis/theMatrix.jpg",
+    anio: 1999,
+    genero: "Ciencia Ficción",
+    rating: 5,
+    tipo: "pelicula",
+    esVista: false,
+  },
+  {
+    titulo: "Batman: El Caballero de la Noche",
+    director: "Christopher Nolan",
+    portada: "/public/portadaPelis/BatmanCaballero.jpg",
+    anio: 2008,
+    genero: "Acción",
+    rating: 5,
+    tipo: "pelicula",
+    esVista: false,
+  },
+  {
+    titulo: "Titanic",
+    director: "James Cameron",
+    portada: "/public/portadaPelis/titanic.jpg",
+    anio: 1997,
+    genero: "Drama",
+    rating: 5,
+    tipo: "pelicula",
+    esVista: false,
+  },
+  {
+    titulo: "El Conjuro",
+    director: "James Wan",
+    portada: "/public/portadaPelis/Elconjuro.jpg",
+    anio: 2013,
+    genero: "Terror",
+    rating: 4,
+    tipo: "pelicula",
+    esVista: false,
+  },
+  {
+    titulo: "Toy Story",
+    director: "John Lasseter",
+    portada: "/public/portadaPelis/toyStory.jpg",
+    anio: 1995,
+    genero: "Comedia",
+    rating: 5,
+    tipo: "pelicula",
+    esVista: false,
+  },
+  {
+    titulo: "The Last of Us",
+    director: "Bruce Straley, Neil Druckmann",
+    portada: "/public/portadaPelis/theLast.jpg",
+    anio: 2023,
+    genero: "Terror",
+    rating: 3,
+    tipo: "serie",
+    esVista: false,
+  },
+];
 
 export function Home() {
   const [textoBusqueda, setTextoBusqueda] = useState("");
@@ -18,11 +112,19 @@ export function Home() {
   const [parametroOrden, setParametroOrden] = useState("anio");
   const [direccionOrden, setDireccionOrden] = useState("desc");
   const [peliAEditar, setPeliAEditar] = useState(null);
-
   const [peliculas, setPeliculas] = useState(() => {
     const datosGuardados = localStorage.getItem("mis_pelis");
     return datosGuardados ? JSON.parse(datosGuardados) : [];
   });
+  const [indice, setIndice] = useState(0);
+
+  const agregarPelicula = () => {
+    if (indice < listaPeliculas.length) {
+      const nuevaPeli = { ...listaPeliculas[indice], id: Date.now() };
+      setPeliculas([...peliculas, nuevaPeli]);
+      setIndice(indice + 1);
+    }
+  };
 
   const generoPelis = [
     "Acción",
@@ -30,7 +132,6 @@ export function Home() {
     "Drama",
     "Terror",
     "Ciencia Ficción",
-    "Documental",
   ];
 
   useEffect(() => {
@@ -53,20 +154,6 @@ export function Home() {
     setPeliculas(
       peliculas.map((p) => (p.id === id ? { ...p, esVista: !p.esVista } : p)),
     );
-  };
-
-  const agregarPelicula = () => {
-    const nuevaPeli = {
-      id: Date.now(),
-      titulo: "Nueva Peli",
-      director: "Director",
-      anio: 2024,
-      genero: "Acción",
-      rating: 5,
-      tipo: "pelicula",
-      esVista: false,
-    };
-    setPeliculas([...peliculas, nuevaPeli]);
   };
 
   // --- LÓGICA DE ESTADÍSTICAS ---
@@ -277,6 +364,13 @@ export function Home() {
             )}
           </Carrusel>
         </section>
+        <div className={styles.contenedorBotonAgregarPelicula}>
+          <Button
+            texto="Agregar Película 🎥"
+            color="#3b759e"
+            onClick={agregarPelicula}
+          />
+        </div>
       </div>
 
       {/* FORMULARIO Y BOTONES */}

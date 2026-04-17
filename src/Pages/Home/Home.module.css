@@ -162,6 +162,13 @@
   flex-wrap: wrap;
 }
 
+/* --- SECCIÓN BOTON AGREGAR PELICULA */
+.contenedorBotonAgregarPelicula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*  RESPONSIVE (Ajustes para celulares) */
 @media (max-width: 900px) {
   .dashboardListas {
